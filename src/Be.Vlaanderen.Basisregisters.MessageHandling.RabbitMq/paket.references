@@ -1,0 +1,7 @@
+Microsoft.Extensions.Configuration.Binder
+Microsoft.Extensions.Logging
+
+RabbitMQ.Client
+
+SourceLink.Embed.AllSourceFiles
+SourceLink.Copy.PdbFiles

@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.App.props" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.csproj" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
