@@ -6,7 +6,7 @@ namespace SamplePublisher.Publishers
 
     public class AddressMessagePublisher : DirectProducer<Message>
     {
-        public AddressMessagePublisher(MessageHandlerContext context) : base(context, new Module("address-registry")) { }
+        public AddressMessagePublisher(MessageHandlerContext context) : base(context, new Module("address-registry"), "events") { }
 
         protected override void OnPublishMessagesHandler(Message[] messages)
         {

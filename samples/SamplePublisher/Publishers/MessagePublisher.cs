@@ -6,7 +6,7 @@ namespace SamplePublisher.Publishers
 
     public class MessagePublisher : TopicProducer<Message>
     {
-        public MessagePublisher(MessageHandlerContext context) : base(context) { }
+        public MessagePublisher(MessageHandlerContext context) : base(context, "events") { }
 
         protected override void OnPublishMessagesHandler(Message[] messages)
         {

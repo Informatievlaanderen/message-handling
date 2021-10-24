@@ -9,7 +9,7 @@ namespace SampleReceiver1.Consumers
     {
         public MessageConsumer(MessageHandlerContext context) : base(
                 context,
-                new Module("municipality-registry"))
+                new Module("municipality-registry"), "events")
         {
         }
 

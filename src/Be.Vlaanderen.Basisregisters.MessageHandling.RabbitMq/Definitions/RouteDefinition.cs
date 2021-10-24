@@ -10,7 +10,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
         public RouteKey RouteKey { get; }
         public Exchange Exchange { get; }
 
-        public RouteDefinition(MessageHandlerContext context, MessageType messageType, string name)
+        public RouteDefinition(MessageHandlerContext context, MessageType messageType, string subscriber, string queueName)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
@@ -18,7 +18,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
             Environment = context.Environment;
             MessageType = messageType;
             Module = context.ThisModule;
-            RouteKey = RouteKey.Create(messageType, context.Environment, context.ThisModule, name);
+            RouteKey = RouteKey.Create(messageType, context.Environment, context.ThisModule, subscriber, queueName);
             Exchange = Exchange.Create(messageType, context.Environment, context.ThisModule);
         }
     }

@@ -11,11 +11,13 @@ namespace SampleReceiver
     {
         private readonly ILogger<App> _logger;
         private readonly MessageConsumer _consumer;
+        private readonly BarMessageConsumer _barConsumer;
         private readonly DirectMessageConsumer _directConsumer;
 
-        public App(MessageConsumer consumer, DirectMessageConsumer directMessageConsumer, ILoggerFactory loggerFactory)
+        public App(MessageConsumer consumer, BarMessageConsumer barConsumer, DirectMessageConsumer directMessageConsumer, ILoggerFactory loggerFactory)
         {
             _consumer = consumer;
+            _barConsumer = barConsumer;
             _directConsumer = directMessageConsumer;
             _logger = loggerFactory.CreateLogger<App>();
         }
@@ -25,6 +27,8 @@ namespace SampleReceiver
             Console.WriteLine("streetname-registry started");
             _consumer.Watch();
             Console.WriteLine("Waiting for topic messages from municipality-registry");
+            _directConsumer.Watch();
+            Console.WriteLine("Waiting for topic bar messages from municipality-registry");
             _directConsumer.Watch();
             Console.WriteLine("Waiting for direct messages from municipality-registry");
             QuietRun();

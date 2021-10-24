@@ -12,9 +12,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
         protected virtual void OnPublishMessagesHandler(T[] messages) { }
         protected abstract void OnPublishMessagesExceptionHandler(Exception exception, T[] messages);
 
-        protected BaseProducer(MessageHandlerContext context, MessageType messageType, string name, int maxRetry = 5) : base(context, maxRetry)
+        protected BaseProducer(MessageHandlerContext context, MessageType messageType, string subscriber, string queueName, int maxRetry = 5) : base(context, maxRetry)
         {
-            RouteDefinition = new RouteDefinition(context, messageType, name);
+            RouteDefinition = new RouteDefinition(context, messageType, subscriber, queueName);
             EnsureExchangeExists(RouteDefinition.Exchange, RouteDefinition.MessageType);
         }
 

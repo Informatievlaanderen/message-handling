@@ -11,12 +11,14 @@ namespace SamplePublisher
     {
         private readonly ILogger<App> _logger;
         private readonly MessagePublisher _publisher;
+        private readonly BarMessagePublisher _barPublisher;
         private readonly StreetNameMessagePublisher _streetnamePublisher;
         private readonly AddressMessagePublisher _addressPublisher;
 
-        public App(MessagePublisher publisher, StreetNameMessagePublisher streetnamePublisher, AddressMessagePublisher addressPublisher, ILoggerFactory loggerFactory)
+        public App(MessagePublisher publisher, BarMessagePublisher barPublisher, StreetNameMessagePublisher streetnamePublisher, AddressMessagePublisher addressPublisher, ILoggerFactory loggerFactory)
         {
             _publisher = publisher;
+            _barPublisher = barPublisher;
             _streetnamePublisher = streetnamePublisher;
             _addressPublisher = addressPublisher;
             _logger = loggerFactory.CreateLogger<App>();

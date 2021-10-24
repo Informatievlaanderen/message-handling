@@ -5,24 +5,24 @@ namespace SampleReceiver.Consumers
     using Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq;
     using Messages;
 
-    public class MessageConsumer : TopicConsumer<Message>
+    public class BarMessageConsumer : TopicConsumer<Bar>
     {
-        public MessageConsumer(MessageHandlerContext context) : base(
+        public BarMessageConsumer(MessageHandlerContext context) : base(
                 context,
                 new Module("municipality-registry"), "events")
         {
         }
 
-        protected override Message Parse(string message)
+        protected override Bar Parse(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
                 return null!;
-            return JsonSerializer.Deserialize<Message>(message)!;
+            return JsonSerializer.Deserialize<Bar>(message)!;
         }
 
-        protected override void MessageReceive(Message message, ulong deliveryTag)
+        protected override void MessageReceive(Bar message, ulong deliveryTag)
         {
-            Console.WriteLine("RECEIVING MESSAGE FROM: municipality-registry");
+            Console.WriteLine("RECEIVING BAR MESSAGE FROM: municipality-registry");
             Console.WriteLine(message.ToString());
             Ack(deliveryTag);
         }

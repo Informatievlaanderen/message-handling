@@ -21,6 +21,7 @@ namespace SampleReceiver.Infrastructure
             serviceCollection.AddLogging();
             serviceCollection.AddMessageHandling(_configuration.GetSection("MessageHandling").Get<MessageHandlerConfiguration>());
             serviceCollection.AddScoped<MessageConsumer>();
+            serviceCollection.AddScoped<BarMessageConsumer>();
             serviceCollection.AddScoped<DirectMessageConsumer>();
         }
     }

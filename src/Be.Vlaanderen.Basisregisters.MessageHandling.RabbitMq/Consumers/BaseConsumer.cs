@@ -14,9 +14,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
         protected abstract void MessageReceive(T message, ulong deliveryTag);
         protected abstract void MessageReceiveException(Exception exception, ulong deliveryTag);
 
-        protected BaseConsumer(MessageHandlerContext context, MessageType messageType, Module module) : base(context)
+        protected BaseConsumer(MessageHandlerContext context, MessageType messageType, Module module, string queueName) : base(context)
         {
-            QueueDefinition = new QueueDefinition(context, messageType, module);
+            QueueDefinition = new QueueDefinition(context, messageType, module, queueName);
         }
 
         public void Watch()

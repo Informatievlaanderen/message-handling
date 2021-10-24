@@ -6,7 +6,7 @@ namespace SamplePublisher.Publishers
 
     public class StreetNameMessagePublisher : DirectProducer<Message>
     {
-        public StreetNameMessagePublisher(MessageHandlerContext context) : base(context, new Module("streetname-registry")) { }
+        public StreetNameMessagePublisher(MessageHandlerContext context) : base(context, new Module("streetname-registry"), "events") { }
 
         protected override void OnPublishMessagesHandler(Message[] messages)
         {

@@ -22,6 +22,7 @@ namespace SamplePublisher.Infrastructure
             serviceCollection.AddLogging();
             serviceCollection.AddMessageHandling(_configuration.GetSection("MessageHandling").Get<MessageHandlerConfiguration>());
             serviceCollection.AddScoped<MessagePublisher>();
+            serviceCollection.AddScoped<BarMessagePublisher>();
             serviceCollection.AddScoped<StreetNameMessagePublisher>();
             serviceCollection.AddScoped<AddressMessagePublisher>();
         }
