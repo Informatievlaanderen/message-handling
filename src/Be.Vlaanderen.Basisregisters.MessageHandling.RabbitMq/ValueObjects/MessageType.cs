@@ -1,7 +1,7 @@
-using System;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 {
+    using System;
+
     public readonly struct MessageType
     {
         public static MessageType Direct = new("direct");

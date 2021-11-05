@@ -1,4 +1,4 @@
-namespace SampleReceiver
+namespace SampleReceiver.Messages
 {
     public class Message
     {

@@ -1,24 +1,24 @@
-using System;
-using RabbitMQ.Client;
-using System.Text;
-using Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions;
-using RabbitMQ.Client.Events;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 {
-    public abstract class Consumer<T>: BaseChannel
+    using System;
+    using System.Text;
+    using RabbitMQ.Client;
+    using RabbitMQ.Client.Events;
+    using Definitions;
+
+    public abstract class BaseConsumer<T>: BaseChannel
     {
         private QueueDefinition? QueueDefinition { get; }
 
         protected abstract T Parse(string message);
         protected abstract void MessageReceive(T message, ulong deliveryTag);
         protected abstract void MessageReceiveException(Exception exception, ulong deliveryTag);
-        
-        protected Consumer(QueueDefinition queueDefinition, IConnection connection) : base(connection)
+
+        protected BaseConsumer(MessageHandlerContext context, MessageType messageType, Module module) : base(context)
         {
-            QueueDefinition = queueDefinition;
+            QueueDefinition = new QueueDefinition(context, messageType, module);
         }
-        
+
         public void Watch()
         {
             EnsureQueueExists(QueueDefinition!);

@@ -1,4 +1,4 @@
-namespace SamplePublisher
+namespace SamplePublisher.Messages
 {
     public class Message
     {

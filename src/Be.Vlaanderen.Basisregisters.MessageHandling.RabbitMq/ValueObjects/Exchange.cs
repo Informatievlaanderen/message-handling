@@ -9,7 +9,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
         private Exchange() {}
 
         public static Exchange Create(MessageType type, Environment environment, Module module)
-            => new($"basisregisters.{environment.Value}.{module.Value}.{type}");
+            => new($"{type}.{environment}.{module}");
 
         public override string ToString() => Value;
         public static implicit operator string(Exchange exchange) => exchange.Value;

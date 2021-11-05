@@ -1,25 +1,29 @@
-using System;
-using System.Text.Json;
-using RabbitMQ.Client;
-using System.Collections.Generic;
-using System.Linq;
-using Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 {
+    using System;
+    using System.Text.Json;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Definitions;
+    using RabbitMQ.Client;
+    using Polly;
+
     /// <summary>
     /// Make sure you create a new instance each thread.
     /// </summary>
     public abstract class BaseChannel : IDisposable
     {
         private bool disposed = false;
-        protected IConnection _connection;
+        private readonly int _maxRetry;
+        protected readonly MessageHandlerContext _context;
+
         protected IModel? Channel { get; private set; }
         protected IBasicProperties BasicProperties { get; private set; }
 
-        protected BaseChannel(IConnection connection)
+        protected BaseChannel(MessageHandlerContext context, int maxRetry = 5)
         {
-            _connection = connection;
+            _context = context;
+            _maxRetry = Math.Max(0, maxRetry);
             EnsureOpenChannel();
         }
 
@@ -30,7 +34,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
         {
             if (Channel == null)
             {
-                Channel = _connection.CreateModel();
+                Channel = _context.Connection.CreateModel();
                 //Make queues durable and store to disk
                 BasicProperties = Channel.CreateBasicProperties();
                 BasicProperties.Persistent = true;
@@ -46,103 +50,76 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 
         protected void EnsureExchangeExists(Exchange exchange, MessageType type)
         {
-            ProcessHandler.Retry(() =>
-            {
-                try
+            Policy.Handle<Exception>()
+                .Retry(_maxRetry, (ex, count) =>
+                {
+                    if (!ex.Message.Contains("no exchange"))
+                        throw ex;
+                    EnsureOpenChannel();
+                    Channel!.ExchangeDeclare(exchange, type, true, false, null);
+                })
+                .Execute(() =>
                 {
                     EnsureOpenChannel();
                     Channel!.ExchangeDeclarePassive(exchange);
-                }
-                catch (Exception e)
-                {
-                    if (!e.Message.Contains("no exchange"))
-                        throw;
-                    EnsureOpenChannel();
-                    Channel!.ExchangeDeclare(exchange, type, true, false, null);
-                }
-            }, 5);
-
+                });
         }
 
         private void EnsureDeadLetterQueueExists(QueueDefinition definition)
         {
-            ProcessHandler.Retry(() =>
-            {
-                try
+            Policy.Handle<Exception>()
+                .Retry(_maxRetry, (ex, count) =>
                 {
+                    if (!ex.Message.Contains("no queue"))
+                        throw ex;
                     EnsureOpenChannel();
-                    Channel!.QueueDeclarePassive($"dlx.{definition.FullQueueName}");
-                }
-                catch (Exception e)
-                {
-                    if (!e.Message.Contains("no queue"))
-                        throw;
-                    EnsureOpenChannel();
-                    Channel!.QueueDeclare($"dlx.{definition.FullQueueName}", true, false, false, new Dictionary<string, object>
+                    Channel!.QueueDeclare(definition.DlxName, true, false, false, new Dictionary<string, object>
                     {
                         {"x-dead-letter-exchange", definition.Exchange.Value},
                         {"x-dead-letter-routing-key", definition.FullQueueName},
                         {"x-message-ttl", 30000}
                     });
                     ApplyDeadLetterQueueBindings(definition);
-                }
-            }, 5);
+                })
+                .Execute(() =>
+                {
+                    EnsureOpenChannel();
+                    Channel!.QueueDeclarePassive(definition.DlxName);
+                });
         }
 
         protected void EnsureQueueExists(QueueDefinition definition)
         {
             EnsureExchangeExists(definition.Exchange, definition.MessageType);
-            ProcessHandler.Retry(() =>
-            {
-                try
+            Policy.Handle<Exception>()
+                .Retry(_maxRetry, (ex, count) =>
                 {
-                    EnsureOpenChannel();
-                    Channel!.QueueDeclarePassive(definition.FullQueueName);
-                }
-                catch (Exception e)
-                {
-                    if (!e.Message.Contains("no queue"))
-                        throw;
+                    if (!ex.Message.Contains("no queue"))
+                        throw ex;
                     EnsureOpenChannel();
                     Channel!.QueueDeclare(definition.FullQueueName, true, false, false, new Dictionary<string, object>
                     {
                         {"x-dead-letter-exchange", definition.Exchange.Value},
-                        {"x-dead-letter-routing-key", $"dlx.{definition.FullQueueName}"}
+                        {"x-dead-letter-routing-key", definition.DlxName}
                     });
                     ApplyBindings(definition);
-                }
-            }, 5);
+                })
+                .Execute(() =>
+                {
+                    EnsureOpenChannel();
+                    Channel!.QueueDeclarePassive(definition.FullQueueName);
+                });
             EnsureDeadLetterQueueExists(definition);
         }
 
         private void ApplyBindings(QueueDefinition definition)
         {
-            if (definition.MessageType == MessageType.Direct)
-            {
-                Channel!.QueueBind(definition.FullQueueName,definition.Exchange, definition.RouteKey);
-            }
-
-            if (definition.MessageType == MessageType.Topic)
-            {
-                Channel!.QueueBind(definition.FullQueueName,definition.Exchange, definition.RouteKey);
-                if (definition.FullWildcardBindings != null)
-                    definition.FullWildcardBindings.ToList().ForEach(wildcard => Channel!.QueueBind(definition.FullQueueName,definition.Exchange, wildcard));
-            }
+            Channel!.QueueBind(definition.FullQueueName, definition.Exchange, definition.BindingKey);
         }
 
         private void ApplyDeadLetterQueueBindings(QueueDefinition definition)
         {
-            if (definition.MessageType == MessageType.Direct)
-            {
-                Channel!.QueueBind($"dlx.{definition.FullQueueName}",definition.Exchange, $"dlx.{definition.RouteKey.Value}");
-            }
-
-            if (definition.MessageType == MessageType.Topic)
-            {
-                Channel!.QueueBind($"dlx.{definition.FullQueueName}",definition.Exchange, definition.RouteKey);
-                if (definition.FullWildcardBindings != null)
-                    definition.FullWildcardBindings.ToList().ForEach(wildcard => Channel!.QueueBind($"dlx.{definition.FullQueueName}",definition.Exchange, $"dlx.{wildcard.Value}"));
-            }
+            Channel!.QueueBind(definition.DlxName, definition.Exchange, definition.DlxName);
         }
 
         public void Dispose()

@@ -1,4 +1,13 @@
 RabbitMQ.Client
 
+Microsoft.Extensions.Configuration
+Microsoft.Extensions.Configuration.FileExtensions
+Microsoft.Extensions.Configuration.Json
+Microsoft.Extensions.DependencyInjection
+
+Serilog
+Serilog.Extensions.Logging
+Serilog.Sinks.Console
+
 SourceLink.Embed.AllSourceFiles
 SourceLink.Copy.PdbFiles
