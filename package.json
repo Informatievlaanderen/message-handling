@@ -1,7 +1,7 @@
 {
   "name": "message-handling",
   "version": "1.0.0",
-  "description": "A rabbitmq implementation for message handling",
+  "description": "Lightweight message handling infrastructure.",
   "author": "Basisregisters Vlaanderen",
   "license": "MIT",
   "repository": {

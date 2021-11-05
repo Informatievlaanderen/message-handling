@@ -7,17 +7,18 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
     public abstract class Producer<T> : BaseChannel where T : new()
     {
         private readonly int _maxRetry;
+
+        private RouteDefinition RouteDefinition { get; }
+
+        protected virtual void OnPublishMessagesHandler(T[] messages) { }
+        protected abstract void OnPublishMessagesExceptionHandler(Exception exception, T[] messages);
+
         protected Producer(RouteDefinition routeDefinition, IConnection connection, int maxRetry = 5) : base(connection)
         {
             RouteDefinition = routeDefinition;
             _maxRetry = Math.Max(0, maxRetry);
             EnsureExchangeExists(RouteDefinition.Exchange, RouteDefinition.MessageType);
         }
-
-        private RouteDefinition RouteDefinition { get; }
-
-        protected virtual void OnPublishMessagesHandler(T[] messages) { }
-        protected abstract void OnPublishMessagesExceptionHandler(Exception exception, T[] messages);
 
         public void Publish(params T[] messages)
         {

@@ -14,6 +14,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
     {
         private bool disposed = false;
         protected IConnection _connection;
+        protected IModel? Channel { get; private set; }
+        protected IBasicProperties BasicProperties { get; private set; }
 
         protected BaseChannel(IConnection connection)
         {
@@ -21,8 +23,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
             EnsureOpenChannel();
         }
 
-        protected IModel? Channel { get; private set; }
-        protected IBasicProperties BasicProperties { get; private set; }
+        protected ReadOnlyMemory<byte> SerializeToUTF8Bytes<T>(T message)
+            => new ReadOnlyMemory<byte>(JsonSerializer.SerializeToUtf8Bytes(message));
 
         protected void EnsureOpenChannel()
         {
@@ -142,9 +144,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
                     definition.FullWildcardBindings.ToList().ForEach(wildcard => Channel!.QueueBind($"dlx.{definition.FullQueueName}",definition.Exchange, $"dlx.{wildcard.Value}"));
             }
         }
-
-        protected ReadOnlyMemory<byte> SerializeToUTF8Bytes<T>(T message)
-            => new ReadOnlyMemory<byte>(JsonSerializer.SerializeToUtf8Bytes(message));
 
         public void Dispose()
         {

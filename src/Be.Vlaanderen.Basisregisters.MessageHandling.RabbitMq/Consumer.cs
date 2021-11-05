@@ -8,17 +8,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 {
     public abstract class Consumer<T>: BaseChannel
     {
-        protected Consumer(QueueDefinition queueDefinition, IConnection connection) : base(connection)
-        {
-            QueueDefinition = queueDefinition;
-        }
-
         private QueueDefinition? QueueDefinition { get; }
 
         protected abstract T Parse(string message);
         protected abstract void MessageReceive(T message, ulong deliveryTag);
         protected abstract void MessageReceiveException(Exception exception, ulong deliveryTag);
-
+        
+        protected Consumer(QueueDefinition queueDefinition, IConnection connection) : base(connection)
+        {
+            QueueDefinition = queueDefinition;
+        }
+        
         public void Watch()
         {
             EnsureQueueExists(QueueDefinition!);

@@ -1,8 +1,9 @@
 # message-handling [![Build Status](https://github.com/InformatieVlaanderen/message-handling/workflows/CI/badge.svg)](https://github.com/Informatievlaanderen/message-handling/actions)
 
-A lib for handling messages with RabbitMQ for Digitaal Vlaanderen
+Lightweight message handling infrastructure for Digitaal Vlaanderen
 
-Currenty supported message types: `Topic`, `Direct`
+Currenty supported RabbitMQ
+ * Message types: `Topic`, `Direct`
 
 ## Sample with RabbitMQ
 

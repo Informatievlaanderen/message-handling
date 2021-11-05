@@ -4,10 +4,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 {
     public sealed class RouteKey
     {
-        private RouteKey(string value) => Value = value;
         public string Value { get; }
 
         private RouteKey() {}
+        private RouteKey(string value) => Value = value;
+          
         public static RouteKey Create(MessageType type, Environment environment, Module module, string name)
         {
             if (type != MessageType.Topic && (name.Contains('*') || name.Contains('#')))
@@ -23,7 +24,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 
             return new RouteKey(route);
         }
-
 
         public static implicit operator string(RouteKey route) => route.Value;
     }

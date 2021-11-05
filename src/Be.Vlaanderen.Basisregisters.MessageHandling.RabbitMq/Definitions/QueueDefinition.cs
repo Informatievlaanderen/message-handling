@@ -5,6 +5,16 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
 {
     public sealed class QueueDefinition
     {
+        public Environment Environment { get; }
+        public MessageType MessageType { get; }
+        public Module Module { get; }
+        public RouteKey RouteKey { get; }
+        public Exchange Exchange { get; }
+        public string FullQueueName => RouteKey.Value;
+        public QueueName QueueName { get; }
+        public IList<string> WildcardBindings { get; }
+        public IList<RouteKey> FullWildcardBindings { get; }
+    
         public QueueDefinition(MessageType messageType, Environment environment,  Module module, QueueName name, IList<string> wildcardBindings = null)
         {
             Environment = environment;
@@ -23,14 +33,5 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
                 }
             }
         }
-        public Environment Environment { get; }
-        public MessageType MessageType { get; }
-        public Module Module { get; }
-        public RouteKey RouteKey { get; }
-        public Exchange Exchange { get; }
-        public string FullQueueName => RouteKey.Value;
-        public QueueName QueueName { get; }
-        public IList<string> WildcardBindings { get; }
-        public IList<RouteKey> FullWildcardBindings { get; }
     }
 }
