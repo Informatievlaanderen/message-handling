@@ -19,8 +19,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
                 Port = config.RabbitMq.Port
             };
             var connection = connectionFactory.CreateConnection();
-            var modules = config.Modules?.Select(m => new Module(m)).ToList() ?? new List<Module>();
-            var module = new Module(config.Module);
+            var modules = config.OtherModules?.Select(m => new Module(m)).ToList() ?? new List<Module>();
+            var module = new Module(config.ThisModule);
 
             var context = new MessageHandlerContext(
                 connection,

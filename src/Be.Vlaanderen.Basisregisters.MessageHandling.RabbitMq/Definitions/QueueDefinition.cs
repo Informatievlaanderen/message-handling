@@ -21,15 +21,15 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
-            if(!context.Modules.Contains(module))
+            if(!context.OtherModules.Contains(module))
                 throw new ArgumentException($"Module '{module}' is not registered");
 
             Environment = context.Environment;
             MessageType = messageType;
-            Module = context.Module;
-            RouteKey = RouteKey.Create(messageType, context.Environment, module, context.Module);
+            Module = context.ThisModule;
+            RouteKey = RouteKey.Create(messageType, context.Environment, module, context.ThisModule);
             Exchange = Exchange.Create(messageType, context.Environment, module);
-            QueueName = context.Module;
+            QueueName = context.ThisModule;
             DlxName = $"dlx.{messageType}.{context.Environment}.{module}";
 
             if (messageType == MessageType.Direct)

@@ -17,9 +17,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
 
             Environment = context.Environment;
             MessageType = messageType;
-            Module = context.Module;
-            RouteKey = RouteKey.Create(messageType, context.Environment, context.Module, name);
-            Exchange = Exchange.Create(messageType, context.Environment, context.Module);
+            Module = context.ThisModule;
+            RouteKey = RouteKey.Create(messageType, context.Environment, context.ThisModule, name);
+            Exchange = Exchange.Create(messageType, context.Environment, context.ThisModule);
         }
     }
 }

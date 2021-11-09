@@ -22,8 +22,8 @@ Currenty supported RabbitMQ
       "Port": 5671
     },
     "Environment": "dev",
-    "Module": "municipality-registry" // The module name of your project
-    "Modules": [
+    "ThisModule": "municipality-registry" // The module name of your project
+    "OtherModules": [
       "address-registry",
       "streetname-registry",
       "building-registry",

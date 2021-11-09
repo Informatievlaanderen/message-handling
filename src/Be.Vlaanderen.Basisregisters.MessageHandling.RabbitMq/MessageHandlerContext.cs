@@ -7,17 +7,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
     {
         public IConnection Connection { get; }
         public Environment Environment { get; }
-        public IList<Module> Modules { get; }
-        public Module Module { get; }
+        public IList<Module> OtherModules { get; }
+        public Module ThisModule { get; }
 
         public MessageHandlerContext(IConnection connection,
             Environment environment,
-            IList<Module> modules, Module module)
+            IList<Module> otherModules, Module thisModule)
         {
             Connection = connection;
             Environment = environment;
-            Modules = modules;
-            Module = module;
+            OtherModules = otherModules;
+            ThisModule = thisModule;
         }
     }
 }

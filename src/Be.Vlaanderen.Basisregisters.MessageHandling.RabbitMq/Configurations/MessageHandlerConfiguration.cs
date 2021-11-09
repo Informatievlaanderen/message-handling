@@ -10,11 +10,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Configurations
         /// <summary>
         /// List of all modules
         /// </summary>
-        public IList<string> Modules { get; set; }
+        public IList<string> OtherModules { get; set; }
 
         /// <summary>
         /// The module name of the current project
         /// </summary>
-        public string Module { get; set; }
+        public string ThisModule { get; set; }
     }
 }
