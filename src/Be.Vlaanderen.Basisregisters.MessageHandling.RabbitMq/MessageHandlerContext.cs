@@ -10,9 +10,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
         public IList<Module> OtherModules { get; }
         public Module ThisModule { get; }
 
-        public MessageHandlerContext(IConnection connection,
+        public MessageHandlerContext(
+            IConnection connection,
             Environment environment,
-            IList<Module> otherModules, Module thisModule)
+            IList<Module> otherModules,
+            Module thisModule)
         {
             Connection = connection;
             Environment = environment;

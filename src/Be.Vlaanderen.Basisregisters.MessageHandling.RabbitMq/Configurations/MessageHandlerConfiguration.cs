@@ -4,7 +4,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Configurations
 
     public class MessageHandlerConfiguration
     {
-        public RabbitMqConfig RabbitMq { get; set; }
+        /// <summary>
+        /// Config for RabbitMq
+        /// </summary>
+        public RabbitMqConfig RabbitMqConfig { get; set; }
+
+        /// <summary>
+        /// The environment (example: dev, test, ...), will be used in the queue name
+        /// </summary>
         public string Environment { get; set; }
 
         /// <summary>

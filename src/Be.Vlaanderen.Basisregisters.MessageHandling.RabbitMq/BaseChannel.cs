@@ -3,7 +3,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
     using System;
     using System.Text.Json;
     using System.Collections.Generic;
-    using System.Linq;
     using Definitions;
     using RabbitMQ.Client;
     using Polly;
@@ -15,14 +14,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
     {
         private bool disposed = false;
         private readonly int _maxRetry;
-        protected readonly MessageHandlerContext _context;
 
+        protected MessageHandlerContext Context { get; }
         protected IModel? Channel { get; private set; }
         protected IBasicProperties BasicProperties { get; private set; }
 
         protected BaseChannel(MessageHandlerContext context, int maxRetry = 5)
         {
-            _context = context;
+            Context = context;
             _maxRetry = Math.Max(0, maxRetry);
             EnsureOpenChannel();
         }
@@ -34,7 +33,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
         {
             if (Channel == null)
             {
-                Channel = _context.Connection.CreateModel();
+                Channel = Context.Connection.CreateModel();
                 //Make queues durable and store to disk
                 BasicProperties = Channel.CreateBasicProperties();
                 BasicProperties.Persistent = true;
@@ -65,29 +64,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
                 });
         }
 
-        private void EnsureDeadLetterQueueExists(QueueDefinition definition)
-        {
-            Policy.Handle<Exception>()
-                .Retry(_maxRetry, (ex, count) =>
-                {
-                    if (!ex.Message.Contains("no queue"))
-                        throw ex;
-                    EnsureOpenChannel();
-                    Channel!.QueueDeclare(definition.DlxName, true, false, false, new Dictionary<string, object>
-                    {
-                        {"x-dead-letter-exchange", definition.Exchange.Value},
-                        {"x-dead-letter-routing-key", definition.FullQueueName},
-                        {"x-message-ttl", 30000}
-                    });
-                    ApplyDeadLetterQueueBindings(definition);
-                })
-                .Execute(() =>
-                {
-                    EnsureOpenChannel();
-                    Channel!.QueueDeclarePassive(definition.DlxName);
-                });
-        }
-
         protected void EnsureQueueExists(QueueDefinition definition)
         {
             EnsureExchangeExists(definition.Exchange, definition.MessageType);
@@ -110,6 +86,29 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
                     Channel!.QueueDeclarePassive(definition.FullQueueName);
                 });
             EnsureDeadLetterQueueExists(definition);
+        }
+
+        private void EnsureDeadLetterQueueExists(QueueDefinition definition)
+        {
+            Policy.Handle<Exception>()
+                .Retry(_maxRetry, (ex, count) =>
+                {
+                    if (!ex.Message.Contains("no queue"))
+                        throw ex;
+                    EnsureOpenChannel();
+                    Channel!.QueueDeclare(definition.DlxName, true, false, false, new Dictionary<string, object>
+                    {
+                        {"x-dead-letter-exchange", definition.Exchange.Value},
+                        {"x-dead-letter-routing-key", definition.FullQueueName},
+                        {"x-message-ttl", 30000}
+                    });
+                    ApplyDeadLetterQueueBindings(definition);
+                })
+                .Execute(() =>
+                {
+                    EnsureOpenChannel();
+                    Channel!.QueueDeclarePassive(definition.DlxName);
+                });
         }
 
         private void ApplyBindings(QueueDefinition definition)

@@ -11,6 +11,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 
         private MessageType(string value) => Value = value;
 
+        public override string ToString() => Value;
+
         public static MessageType? Parse(string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -22,7 +24,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 
             return new MessageType(name);
         }
-        public override string ToString() => Value;
+
         public static implicit operator string(MessageType name) => name.Value;
     }
 }

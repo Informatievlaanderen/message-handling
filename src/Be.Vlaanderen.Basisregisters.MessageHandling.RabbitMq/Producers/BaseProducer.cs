@@ -9,10 +9,13 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
     {
         protected RouteDefinition RouteDefinition { get; }
 
-        protected virtual void OnPublishMessagesHandler(T[] messages) { }
-        protected abstract void OnPublishMessagesExceptionHandler(Exception exception, T[] messages);
-
-        protected BaseProducer(MessageHandlerContext context, MessageType messageType, string subscriber, string queueName, int maxRetry = 5) : base(context, maxRetry)
+        protected BaseProducer(
+            MessageHandlerContext context,
+            MessageType messageType,
+            string subscriber,
+            string queueName,
+            int maxRetry = 5)
+            : base(context, maxRetry)
         {
             RouteDefinition = new RouteDefinition(context, messageType, subscriber, queueName);
             EnsureExchangeExists(RouteDefinition.Exchange, RouteDefinition.MessageType);
@@ -27,6 +30,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
                 BatchPublish(messages);
         }
 
+        protected virtual void OnPublishMessagesHandler(T[] messages) { }
+        protected abstract void OnPublishMessagesExceptionHandler(Exception exception, T[] messages);
+
         private void Publish(T message)
         {
             try
@@ -40,11 +46,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
                         Channel!.BasicPublish(RouteDefinition.Exchange, RouteDefinition.RouteKey, true, BasicProperties,
                             buffer);
                     });
-                OnPublishMessagesHandler(new[] { message});
+                OnPublishMessagesHandler(new[] { message });
             }
             catch (Exception e)
             {
-                OnPublishMessagesExceptionHandler(e, new[] { message});
+                OnPublishMessagesExceptionHandler(e, new[] { message });
             }
         }
 

@@ -6,17 +6,37 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
     using RabbitMQ.Client.Events;
     using Definitions;
 
-    public abstract class BaseConsumer<T>: BaseChannel
+    public abstract class BaseConsumer<T> : BaseChannel
     {
         private QueueDefinition? QueueDefinition { get; }
+
+        protected BaseConsumer(
+            MessageHandlerContext context,
+            MessageType messageType,
+            Module module,
+            string queueName)
+            : base(context)
+        {
+            QueueDefinition = new QueueDefinition(context, messageType, module, queueName);
+        }
 
         protected abstract T Parse(string message);
         protected abstract void MessageReceive(T message, ulong deliveryTag);
         protected abstract void MessageReceiveException(Exception exception, ulong deliveryTag);
 
-        protected BaseConsumer(MessageHandlerContext context, MessageType messageType, Module module, string queueName) : base(context)
+        protected void Ack(ulong deliveryTag)
         {
-            QueueDefinition = new QueueDefinition(context, messageType, module, queueName);
+            Channel!.BasicAck(deliveryTag, false);
+        }
+
+        protected void Nack(ulong deliveryTag, bool requeued = true)
+        {
+            Channel!.BasicNack(deliveryTag, false, requeued);
+        }
+
+        protected void Reject(ulong deliveryTag, bool requeued = false)
+        {
+            Channel!.BasicReject(deliveryTag, requeued);
         }
 
         public void Watch()
@@ -36,21 +56,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
                 }
             };
             Channel.BasicConsume(queue: QueueDefinition!.FullQueueName, autoAck: false, consumer: consumer);
-        }
-
-        protected void Ack(ulong deliveryTag)
-        {
-            Channel!.BasicAck(deliveryTag, false);
-        }
-
-        protected void Nack(ulong deliveryTag, bool requeued = true)
-        {
-            Channel!.BasicNack(deliveryTag, false, requeued);
-        }
-
-        protected void Reject(ulong deliveryTag, bool requeued = false)
-        {
-            Channel!.BasicReject(deliveryTag, requeued);
         }
     }
 }

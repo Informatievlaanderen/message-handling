@@ -2,7 +2,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Cryptography;
     using Configurations;
     using Microsoft.Extensions.DependencyInjection;
     using RabbitMQ.Client;
@@ -13,10 +12,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
         {
             var connectionFactory = new ConnectionFactory()
             {
-                Uri = config.RabbitMq.Uri,
-                UserName = config.RabbitMq.Username,
-                Password = config.RabbitMq.Password,
-                Port = config.RabbitMq.Port
+                Uri = config.RabbitMqConfig.Uri,
+                UserName = config.RabbitMqConfig.Username,
+                Password = config.RabbitMqConfig.Password,
+                Port = config.RabbitMqConfig.Port
             };
             var connection = connectionFactory.CreateConnection();
             var modules = config.OtherModules?.Select(m => new Module(m)).ToList() ?? new List<Module>();

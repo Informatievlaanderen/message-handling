@@ -1,7 +1,6 @@
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
 {
     using System;
-    using System.Collections.Generic;
     using Environment = RabbitMq.Environment;
 
     public sealed class QueueDefinition
@@ -16,12 +15,23 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
         public string QueueName { get; }
         public string DlxName { get; }
 
-        public QueueDefinition(MessageHandlerContext context, MessageType messageType, Module publisher, string queueName)
+        /// <summary>
+        /// The ctor for the queue definition
+        /// </summary>
+        /// <param name="context">The message handler context</param>
+        /// <param name="messageType">The message type (direct, topic)</param>
+        /// <param name="publisher">The publisher module</param>
+        /// <param name="queueName">The queue name</param>
+        public QueueDefinition(
+            MessageHandlerContext context,
+            MessageType messageType,
+            Module publisher,
+            string queueName)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
-            if(!context.OtherModules.Contains(publisher))
+            if (!context.OtherModules.Contains(publisher))
                 throw new ArgumentException($"Module '{publisher}' is not registered");
 
             Environment = context.Environment;

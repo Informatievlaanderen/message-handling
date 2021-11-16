@@ -10,7 +10,18 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Definitions
         public RouteKey RouteKey { get; }
         public Exchange Exchange { get; }
 
-        public RouteDefinition(MessageHandlerContext context, MessageType messageType, string subscriber, string queueName)
+        /// <summary>
+        /// The ctor for the route definition
+        /// </summary>
+        /// <param name="context">The message handler context</param>
+        /// <param name="messageType">The message type (direct, topic)</param>
+        /// <param name="subscriber">The subscriber</param>
+        /// <param name="queueName">The queue name</param>
+        public RouteDefinition(
+            MessageHandlerContext context,
+            MessageType messageType,
+            string subscriber,
+            string queueName)
         {
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
