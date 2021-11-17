@@ -1,6 +1,6 @@
 {
   "name": "message-handling",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Lightweight message handling infrastructure.",
   "author": "Basisregisters Vlaanderen",
   "license": "MIT",
@@ -11,7 +11,7 @@
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
-    "@commitlint/config-conventional": "12.1.4",
+    "@commitlint/config-conventional": "15.0.0",
     "@commitlint/prompt": "12.1.4",
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "8.0.1",
