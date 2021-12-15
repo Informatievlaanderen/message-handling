@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Vlaanderen.Basisregister
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests", "test\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests.csproj", "{81022A2C-2827-4100-AD70-34B4EA5867A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka", "src\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj", "{AB15DED2-C5BB-41BF-BE1C-176AF7FD3592}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB15DED2-C5BB-41BF-BE1C-176AF7FD3592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB15DED2-C5BB-41BF-BE1C-176AF7FD3592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB15DED2-C5BB-41BF-BE1C-176AF7FD3592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB15DED2-C5BB-41BF-BE1C-176AF7FD3592}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
