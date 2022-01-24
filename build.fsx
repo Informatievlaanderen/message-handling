@@ -24,6 +24,7 @@ supportedRuntimeIdentifiers <- [ "linux-x64" ]
 // Library ------------------------------------------------------------------------
 Target.create "Lib_Build" (fun _ ->
     buildSource "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq"
+    buildSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
     buildTest "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests"
 )
 
@@ -33,8 +34,15 @@ Target.create "Lib_Test" (fun _ ->
     ] |> List.iter testWithDotNet
 )
 
-Target.create "Lib_Publish" (fun _ -> publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq")
-Target.create "Lib_Pack" (fun _ -> pack "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq")
+Target.create "Lib_Publish" (fun _ ->
+    publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq"
+    publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
+)
+
+Target.create "Lib_Pack" (fun _ ->
+    pack "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq"
+    pack "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
+)
 
 // --------------------------------------------------------------------------------
 Target.create "PublishAll" ignore
