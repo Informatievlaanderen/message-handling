@@ -17,7 +17,8 @@ description Message handling with Kafka.
 dependencies
   framework: net5.0
     Microsoft.Extensions.Logging >= LOCKEDVERSION
-    Confluent.Kafka >= LOCKVERSION
+    Confluent.Kafka >= LOCKEDVERSION
+    Confluent.SchemaRegistry.Serdes.Json >= LOCKEDVERSION
 
 files
   bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.dll => lib\net5.0
