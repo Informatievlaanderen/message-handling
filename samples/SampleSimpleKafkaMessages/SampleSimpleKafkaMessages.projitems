@@ -9,6 +9,6 @@
     <Import_RootNamespace>SampleSimpleKafkaMessages</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)SomeSimpleMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IKafkaSerializable.cs" />
   </ItemGroup>
 </Project>

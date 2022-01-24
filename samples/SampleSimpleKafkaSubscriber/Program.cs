@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple;
 using Microsoft.Extensions.Configuration;
-using SampleSimpleKafkaMessages;
 
 namespace SampleSimpleKafkaSubscriber
 {
@@ -24,10 +23,9 @@ namespace SampleSimpleKafkaSubscriber
                 Console.WriteLine("Stopping");
             };
 
-            const string consumerGroup = "consumer-group-1";
-            _ = KafkaConsumer.Consume<SomeSimpleMessage>(config["Kafka:BootstrapServers"], consumerGroup, "topic-1", message =>
+            _ = KafkaConsumer.ConsumeAll<string>(config["Kafka:BootstrapServers"], "consumer-group-1", "topic-1", message =>
             {
-                Console.WriteLine($"Consumer group {consumerGroup} received: {message}");
+                Console.WriteLine($"Received: {message}");
             }, cancellationToken);
         }
     }
