@@ -1,10 +1,11 @@
+using System;
+using System.Threading;
+using Confluent.Kafka;
+using Confluent.Kafka.SyncOverAsync;
+using Confluent.SchemaRegistry.Serdes;
+
 namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
 {
-    using System;
-    using System.Threading;
-    using Confluent.Kafka;
-    using Confluent.Kafka.SyncOverAsync;
-    using Confluent.SchemaRegistry.Serdes;
     public static class KafkaConsumer
     {
         public static Result Consume<T>(string bootstrapServers, string consumerGroupId, string topic, Action<T> messageHandler, CancellationToken cancellationToken = default)

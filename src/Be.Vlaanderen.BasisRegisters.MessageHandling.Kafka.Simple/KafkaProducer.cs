@@ -1,13 +1,13 @@
+using System;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using Confluent.Kafka;
+using Confluent.SchemaRegistry;
+using Confluent.SchemaRegistry.Serdes;
+
 namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
 {
-    using System;
-    using System.Net;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Confluent.Kafka;
-    using Confluent.SchemaRegistry;
-    using Confluent.SchemaRegistry.Serdes;
-
     public static class KafkaProducer
     {
         public static async Task<Result<T>> Produce<T>(string bootstrapServers, string schemaRegistryUrl, string topic, T message, CancellationToken cancellationToken = default)

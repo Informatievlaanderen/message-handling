@@ -1,7 +1,7 @@
+using System;
+
 namespace SampleSimpleKafkaMessages
 {
-    using System;
-
     public class SomeSimpleMessage
     {
         public DateTime DateTime { get; set; }

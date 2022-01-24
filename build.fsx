@@ -44,6 +44,3 @@ Target.create "PackageAll" ignore
 "PublishAll"
 ==> "Lib_Pack"
 ==> "PackageAll"
-
-// Publish ends up with artifacts in the build folder
-Target.runOrDefault "Lib_Build"

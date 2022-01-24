@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq", "src\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.csproj", "{2881BE42-B01A-4A08-ACC9-583F970E030B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests", "test\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests.csproj", "{81022A2C-2827-4100-AD70-34B4EA5867A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

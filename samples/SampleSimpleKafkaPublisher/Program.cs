@@ -1,12 +1,12 @@
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple;
+using Microsoft.Extensions.Configuration;
+using SampleSimpleKafkaMessages;
+
 namespace SampleSimpleKafkaPublisher
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple;
-    using Microsoft.Extensions.Configuration;
-    using SampleSimpleKafkaMessages;
-
     public static class Program
     {
         public static async Task Main()
