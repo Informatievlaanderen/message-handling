@@ -1,10 +1,3 @@
-## [1.0.6](https://github.com/informatievlaanderen/message-handling/compare/v1.0.5...v1.0.6) (2022-01-24)
-
-
-### Bug Fixes
-
-* LOCKEDVERSION in paket.template ([e98bc9a](https://github.com/informatievlaanderen/message-handling/commit/e98bc9ac8e2c2523204415b2b982a1fd10cec73b))
-
 ## [1.0.5](https://github.com/informatievlaanderen/message-handling/compare/v1.0.4...v1.0.5) (2022-01-24)
 
 
