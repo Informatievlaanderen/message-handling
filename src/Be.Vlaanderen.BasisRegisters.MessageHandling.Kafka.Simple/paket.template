@@ -20,5 +20,5 @@ dependencies
     Confluent.Kafka >= LOCKVERSION
 
 files
-  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.dll => lib\net5.0
-  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.pdb => lib\net5.0
+  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.dll => lib\net5.0
+  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.pdb => lib\net5.0
