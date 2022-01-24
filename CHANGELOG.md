@@ -1,10 +1,3 @@
-## [1.0.5](https://github.com/informatievlaanderen/message-handling/compare/v1.0.4...v1.0.5) (2022-01-24)
-
-
-### Bug Fixes
-
-* build ([e2bfb44](https://github.com/informatievlaanderen/message-handling/commit/e2bfb44e42a44811ce05eab622409c319d4c704c))
-
 ## [1.0.4](https://github.com/informatievlaanderen/message-handling/compare/v1.0.3...v1.0.4) (2022-01-24)
 
 
