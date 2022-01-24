@@ -1,8 +1,0 @@
-Microsoft.Extensions.Configuration
-Microsoft.Extensions.Configuration.Json
-Microsoft.Extensions.DependencyInjection
-Confluent.Kafka
-Confluent.SchemaRegistry.Serdes.Json
-
-SourceLink.Embed.AllSourceFiles
-SourceLink.Copy.PdbFiles

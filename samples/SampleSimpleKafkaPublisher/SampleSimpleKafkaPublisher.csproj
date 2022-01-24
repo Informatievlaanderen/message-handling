@@ -1,23 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
     <None Remove="appsettings.json" />
   </ItemGroup>
+
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple.csproj" />
   </ItemGroup>
+
   <Import Project="..\SampleSimpleKafkaMessages\SampleSimpleKafkaMessages.projitems" Label="Shared" />
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+
 </Project>
