@@ -35,11 +35,11 @@ Target.create "Lib_Test" (fun _ ->
 )
 
 Target.create "Lib_Publish" (fun _ ->
-    publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq"
+    publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
 )
 
 Target.create "Lib_Pack" (fun _ ->
-    pack "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq"
+    pack "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
 )
 
 // --------------------------------------------------------------------------------

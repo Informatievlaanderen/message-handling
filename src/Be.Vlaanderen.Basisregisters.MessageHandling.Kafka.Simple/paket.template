@@ -1,8 +1,8 @@
 type file
 version 1.0.0
 
-id Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
-title Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq
+id Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
+title Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 
 authors Basisregisters Vlaanderen
 owners Digitaal Vlaanderen <https://vlaanderen.be/digitaal-vlaanderen>
@@ -12,13 +12,14 @@ projectUrl https://github.com/Informatievlaanderen/message-handling
 iconUrl https://raw.githubusercontent.com/Informatievlaanderen/build-pipeline/master/logo.png
 licenseUrl https://opensource.org/licenses/MIT
 
-description Message handling with RabbitMQ.
+description Message handling with Kafka.
 
 dependencies
   framework: net5.0
     Microsoft.Extensions.Logging >= LOCKEDVERSION
-    RabbitMQ.Client >= LOCKEDVERSION
+    Confluent.Kafka >= LOCKEDVERSION
+    Confluent.SchemaRegistry.Serdes.Json >= LOCKEDVERSION
 
 files
-  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.dll => lib\net5.0
-  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.pdb => lib\net5.0
+  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.dll => lib\net5.0
+  bin\Release\net5.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.pdb => lib\net5.0
