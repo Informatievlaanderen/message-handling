@@ -15,15 +15,14 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using var consumer = new ConsumerBuilder<Ignore, T>(config)
-                .Build();
+            using var consumer = new ConsumerBuilder<Ignore, T>(config).Build();
             try
             {
                 consumer.Subscribe(topic);
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    var consumeResult = consumer.Consume(cancellationToken);
+                    var consumeResult = consumer.Consume();
                     messageHandler?.Invoke(consumeResult.Message.Value);
                     consumer.Commit(consumeResult);
                 }
@@ -33,10 +32,6 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
             catch (ConsumeException ex)
             {
                 return Result.Failure(ex.Error.Code.ToString(), ex.Error.Reason);
-            }
-            catch (OperationCanceledException)
-            {
-                return Result.Success();
             }
             finally
             {

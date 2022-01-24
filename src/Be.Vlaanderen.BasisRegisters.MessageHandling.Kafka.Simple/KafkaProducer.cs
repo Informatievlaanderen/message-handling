@@ -16,9 +16,7 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
 
             try
             {
-                using var producer = new ProducerBuilder<Null, T>(config)
-                    .Build();
-
+                using var producer = new ProducerBuilder<Null, T>(config).Build();
                 _ = await producer.ProduceAsync(topic, new Message<Null, T> { Value = message });
                 return Result<T>.Success(message);
             }

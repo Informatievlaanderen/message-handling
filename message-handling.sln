@@ -3,20 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple", "src\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple.csproj", "{BD9EB32E-5426-4686-8C1A-0D14C4EF993A}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleSimpleKafkaPublisher", "samples\SampleSimpleKafkaPublisher\SampleSimpleKafkaPublisher.csproj", "{900B95BC-67F1-4E6F-B204-E62ECD573F67}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleSimpleKafkaSubscriber", "samples\SampleSimpleKafkaSubscriber\SampleSimpleKafkaSubscriber.csproj", "{59FADDCF-B2CC-4942-A27B-D80670D72172}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SampleSimpleKafkaMessages", "samples\SampleSimpleKafkaMessages\SampleSimpleKafkaMessages.shproj", "{A1C7534C-F200-41EF-93EF-A6D69520F68A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple", "src\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple.csproj", "{BD9EB32E-5426-4686-8C1A-0D14C4EF993A}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		samples\SampleSimpleKafkaMessages\SampleSimpleKafkaMessages.projitems*{59faddcf-b2cc-4942-a27b-d80670d72172}*SharedItemsImports = 5
-		samples\SampleSimpleKafkaMessages\SampleSimpleKafkaMessages.projitems*{900b95bc-67f1-4e6f-b204-e62ecd573f67}*SharedItemsImports = 5
-		samples\SampleSimpleKafkaMessages\SampleSimpleKafkaMessages.projitems*{a1c7534c-f200-41ef-93ef-a6d69520f68a}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -38,30 +27,6 @@ Global
 		{BD9EB32E-5426-4686-8C1A-0D14C4EF993A}.Release|x64.Build.0 = Release|Any CPU
 		{BD9EB32E-5426-4686-8C1A-0D14C4EF993A}.Release|x86.ActiveCfg = Release|Any CPU
 		{BD9EB32E-5426-4686-8C1A-0D14C4EF993A}.Release|x86.Build.0 = Release|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Debug|x64.Build.0 = Debug|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Debug|x86.Build.0 = Debug|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Release|Any CPU.Build.0 = Release|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Release|x64.ActiveCfg = Release|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Release|x64.Build.0 = Release|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Release|x86.ActiveCfg = Release|Any CPU
-		{900B95BC-67F1-4E6F-B204-E62ECD573F67}.Release|x86.Build.0 = Release|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Debug|x64.Build.0 = Debug|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Debug|x86.Build.0 = Debug|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Release|x64.ActiveCfg = Release|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Release|x64.Build.0 = Release|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Release|x86.ActiveCfg = Release|Any CPU
-		{59FADDCF-B2CC-4942-A27B-D80670D72172}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
