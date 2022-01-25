@@ -28,12 +28,6 @@ Target.create "Lib_Build" (fun _ ->
     buildTest "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests"
 )
 
-Target.create "Lib_Test" (fun _ ->
-    [
-        "test" @@ "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests"
-    ] |> List.iter testWithDotNet
-)
-
 Target.create "Lib_Publish" (fun _ ->
     publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
 )
@@ -51,7 +45,6 @@ Target.create "PackageAll" ignore
 ==> "Clean"
 ==> "Restore"
 ==> "Lib_Build"
-==> "Lib_Test"
 ==> "Lib_Publish"
 ==> "PublishAll"
 
@@ -61,5 +54,3 @@ Target.create "PackageAll" ignore
 ==> "PackageAll"
 
 // Publish ends up with artifacts in the build folder
-
-Target.runOrDefault "Lib_Test"
