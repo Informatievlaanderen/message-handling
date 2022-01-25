@@ -9,7 +9,7 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
     public static class KafkaConsumer
     {
         public static Result Consume<T>(
-            string bootstrapServers,
+            KafkaOptions options,
             string consumerGroupId,
             string topic,
             Action<T> messageHandler,
@@ -18,13 +18,13 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
         {
             var config = new ConsumerConfig
             {
-                BootstrapServers = bootstrapServers,
+                BootstrapServers = options.BootstrapServers,
                 GroupId = consumerGroupId,
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
             using var consumer = new ConsumerBuilder<Ignore, T>(config)
-                .SetValueDeserializer(new JsonDeserializer<T>().AsSyncOverAsync())
+                .SetValueDeserializer(new JsonDeserializer<T>(options.JsonDeserializerConfig).AsSyncOverAsync())
                 .Build();
             try
             {

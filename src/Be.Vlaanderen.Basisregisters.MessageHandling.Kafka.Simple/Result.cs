@@ -18,9 +18,9 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
         private Result()
         { }
 
-        public T Message { get; init; }
+        public T? Message { get; init; }
 
-        public static Result<T> Success(T message) => new Result<T> { IsSuccess = true, Message = message };
+        public static Result<T> Success(T? message) => new Result<T> { IsSuccess = true, Message = message };
         public new static Result<T> Failure(string error, string errorReason) => new Result<T> { IsSuccess = false, Error = error, ErrorReason = errorReason };
     }
 }
