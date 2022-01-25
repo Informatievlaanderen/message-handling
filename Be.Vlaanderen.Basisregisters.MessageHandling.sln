@@ -9,6 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C2BA730E-DE1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple", "src\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.csproj", "{4AEB5920-A303-4B59-87EA-5EACF5A3AB38}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FAF99434-0837-4CCC-AA46-151A5683F1E9}"
+	ProjectSection(SolutionItems) = preProject
+		build.fsx = build.fsx
+		global.json = global.json
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -6,8 +6,8 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
         { }
 
         public bool IsSuccess { get; init; }
-        public string Error { get; init; }
-        public string ErrorReason { get; init; }
+        public string? Error { get; init; }
+        public string? ErrorReason { get; init; }
 
         public static Result Success() => new Result { IsSuccess = true };
         public static Result Failure(string error, string errorReason) => new Result { IsSuccess = false, Error = error, ErrorReason = errorReason };

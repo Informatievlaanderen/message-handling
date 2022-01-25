@@ -2,7 +2,7 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
 {
     using Confluent.SchemaRegistry.Serdes;
 
-    public class KafkaOptions
+    public class KafkaOptions 
     {
         public string BootstrapServers { get; set; }
         public string SchemaRegistryUrl { get; set; }
