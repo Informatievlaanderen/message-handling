@@ -1,4 +1,4 @@
-namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
+namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 {
     using Confluent.SchemaRegistry.Serdes;
 
