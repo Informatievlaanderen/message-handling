@@ -1,4 +1,4 @@
-namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
+namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 {
     using System;
     using System.Net;
@@ -11,8 +11,7 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
     public static class KafkaProducer
     {
         public static async Task<Result<T>> Produce<T>(
-            string bootstrapServers,
-            string schemaRegistryUrl,
+            KafkaOptions options,
             string topic,
             T message,
             CancellationToken cancellationToken = default)
@@ -20,20 +19,20 @@ namespace Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple
         {
             var config = new ProducerConfig
             {
-                BootstrapServers = bootstrapServers,
+                BootstrapServers = options.BootstrapServers,
                 ClientId = Dns.GetHostName()
             };
 
             var schemaConfig = new SchemaRegistryConfig
             {
-                Url = schemaRegistryUrl
+                Url = options.SchemaRegistryUrl
             };
 
             try
             {
                 using var schemaRegistryClient = new CachedSchemaRegistryClient(schemaConfig);
                 using var producer = new ProducerBuilder<Null, T>(config)
-                    .SetValueSerializer(new JsonSerializer<T>(schemaRegistryClient))
+                    .SetValueSerializer(new JsonSerializer<T>(schemaRegistryClient, options.JsonSerializerConfig))
                     .Build();
 
                 _ = await producer.ProduceAsync(topic, new Message<Null, T> { Value = message }, cancellationToken);

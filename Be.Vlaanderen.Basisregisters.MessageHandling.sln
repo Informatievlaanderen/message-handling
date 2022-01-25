@@ -5,13 +5,17 @@ VisualStudioVersion = 16.0.31727.386
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq", "src\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.csproj", "{2881BE42-B01A-4A08-ACC9-583F970E030B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests", "test\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Tests.csproj", "{81022A2C-2827-4100-AD70-34B4EA5867A2}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CC8451B8-FB3D-4E1D-B89F-01852197BCA3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FAF99434-0837-4CCC-AA46-151A5683F1E9}"
+	ProjectSection(SolutionItems) = preProject
+		build.fsx = build.fsx
+		global.json = global.json
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple", "src\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.csproj", "{4AEB5920-A303-4B59-87EA-5EACF5A3AB38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple", "src\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.csproj", "{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,22 +27,17 @@ Global
 		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81022A2C-2827-4100-AD70-34B4EA5867A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AEB5920-A303-4B59-87EA-5EACF5A3AB38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AEB5920-A303-4B59-87EA-5EACF5A3AB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AEB5920-A303-4B59-87EA-5EACF5A3AB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AEB5920-A303-4B59-87EA-5EACF5A3AB38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2881BE42-B01A-4A08-ACC9-583F970E030B} = {C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}
-		{81022A2C-2827-4100-AD70-34B4EA5867A2} = {CC8451B8-FB3D-4E1D-B89F-01852197BCA3}
-		{4AEB5920-A303-4B59-87EA-5EACF5A3AB38} = {C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}
+		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD} = {C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4319A264-B8BB-45A5-8162-FFBA68E06F2D}
