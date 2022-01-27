@@ -3,8 +3,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
     using System;
     using System.Threading;
     using Confluent.Kafka;
-    using Confluent.Kafka.SyncOverAsync;
-    using Confluent.SchemaRegistry.Serdes;
+    using Extensions;
+    using Newtonsoft.Json;
 
     public static class KafkaConsumer
     {
@@ -23,8 +23,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using var consumer = new ConsumerBuilder<Ignore, T>(config)
-                .SetValueDeserializer(new JsonDeserializer<T>(options.JsonDeserializerConfig).AsSyncOverAsync())
+            var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
+
+            using var consumer = new ConsumerBuilder<Ignore, string>(config)
+                .SetValueDeserializer(Deserializers.Utf8)
                 .Build();
             try
             {
@@ -32,8 +34,12 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    var consumeResult = consumer.Consume(cancellationToken);
-                    messageHandler?.Invoke(consumeResult.Message.Value);
+                    var consumeResult = consumer.Consume(TimeSpan.FromSeconds(3));
+
+                    var kafkaJsonMessage = serializer.Deserialize<KafkaJsonMessage>(consumeResult.Message.Value) ?? throw new ArgumentException("Kafka json message is null.");
+                    var messageData = kafkaJsonMessage.Map<T>() ?? throw new ArgumentException("Kafka message data is null.");
+
+                    messageHandler?.Invoke(messageData);
                     consumer.Commit(consumeResult);
                 }
 

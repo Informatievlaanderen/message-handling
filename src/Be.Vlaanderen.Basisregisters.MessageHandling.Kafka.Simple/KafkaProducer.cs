@@ -5,14 +5,15 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
-    using Confluent.SchemaRegistry;
-    using Confluent.SchemaRegistry.Serdes;
+    using Extensions;
+    using Newtonsoft.Json;
 
     public static class KafkaProducer
     {
         public static async Task<Result<T>> Produce<T>(
             KafkaOptions options,
             string topic,
+            string key,
             T message,
             CancellationToken cancellationToken = default)
             where T : class
@@ -23,19 +24,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 ClientId = Dns.GetHostName()
             };
 
-            var schemaConfig = new SchemaRegistryConfig
-            {
-                Url = options.SchemaRegistryUrl
-            };
-
             try
             {
-                using var schemaRegistryClient = new CachedSchemaRegistryClient(schemaConfig);
-                using var producer = new ProducerBuilder<Null, T>(config)
-                    .SetValueSerializer(new JsonSerializer<T>(schemaRegistryClient, options.JsonSerializerConfig))
+                var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
+                var kafkaJsonMessage = KafkaJsonMessage.Create(message, serializer);
+
+                using var producer = new ProducerBuilder<string, string>(config)
+                    .SetKeySerializer(Serializers.Utf8)
+                    .SetValueSerializer(Serializers.Utf8)
                     .Build();
 
-                _ = await producer.ProduceAsync(topic, new Message<Null, T> { Value = message }, cancellationToken);
+                _ = await producer.ProduceAsync(new TopicPartition(topic, new Partition(0)), new Message<string, string> { Key = key, Value = serializer.Serialize(kafkaJsonMessage) }, cancellationToken);
                 return Result<T>.Success(message);
             }
             catch (ProduceException<Null, T> ex)

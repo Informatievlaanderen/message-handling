@@ -1,7 +1,7 @@
+Confluent.Kafka
 Microsoft.Extensions.Configuration.Json
 Microsoft.Extensions.DependencyInjection
-Confluent.Kafka
-Confluent.SchemaRegistry.Serdes.Json
+Newtonsoft.Json
 
 SourceLink.Embed.AllSourceFiles
 SourceLink.Copy.PdbFiles

@@ -1,20 +1,16 @@
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 {
-    using Confluent.SchemaRegistry.Serdes;
+    using Newtonsoft.Json;
 
     public class KafkaOptions 
     {
-        public string BootstrapServers { get; set; }
-        public string SchemaRegistryUrl { get; set; }
-        public JsonSerializerConfig JsonSerializerConfig { get; set; }
-        public JsonDeserializerConfig JsonDeserializerConfig { get; set; }
+        public string BootstrapServers { get; }
+        public JsonSerializerSettings JsonSerializerSettings { get; }
 
-        public KafkaOptions(string bootstrapServers, string schemaRegistryUrl, JsonSerializerConfig? jsonSerializerConfig = null, JsonDeserializerConfig? jsonDeserializerConfig = null)
+        public KafkaOptions(string bootstrapServers, JsonSerializerSettings? jsonSerializerSettings = null)
         {
             BootstrapServers = bootstrapServers;
-            SchemaRegistryUrl = schemaRegistryUrl;
-            JsonSerializerConfig = jsonSerializerConfig ?? new JsonSerializerConfig();
-            JsonDeserializerConfig = jsonDeserializerConfig ?? new JsonDeserializerConfig();
+            JsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
         }
     }
 }
