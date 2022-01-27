@@ -53,5 +53,3 @@ Target.create "PackageAll" ignore
 ==> "PackageAll"
 
 // Publish ends up with artifacts in the build folder
-
-Target.runOrDefault "Lib_Test"
