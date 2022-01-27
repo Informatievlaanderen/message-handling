@@ -5,12 +5,13 @@ source https://api.nuget.org/v3/index.json
 nuget Microsoft.Extensions.Configuration.Binder 5.0.0
 nuget Microsoft.Extensions.Logging 5.0.0
 
+nuget Newtonsoft.Json 13.0.1
+
 nuget Be.Vlaanderen.Basisregisters.Api 15.0.12
 nuget RabbitMQ.Client 6.2.2
 nuget Polly 7.2.2
 
 nuget Confluent.Kafka 1.8.2
-nuget Confluent.SchemaRegistry.Serdes.Json 1.8.2
 
 nuget Serilog 2.10.0
 nuget Serilog.Settings.Configuration 3.1.0
