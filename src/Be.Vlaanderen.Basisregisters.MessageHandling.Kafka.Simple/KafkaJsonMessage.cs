@@ -2,6 +2,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Reflection;
     using Extensions;
     using Newtonsoft.Json;
 
@@ -16,12 +17,12 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
             Data = data;
         }
 
-        public T? Map<T>()
+        public object? Map()
         {
-            var assembly = typeof(T).Assembly;
+            var assembly = GetAssemblyNameContainingType(Type);
             var type = assembly.GetType(Type);
 
-            return (T?)JsonConvert.DeserializeObject(Data, type!);
+            return JsonConvert.DeserializeObject(Data, type!);
         }
 
         public static KafkaJsonMessage Create<T>([DisallowNull] T message, JsonSerializer serializer)
@@ -37,6 +38,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
             }
 
             return new KafkaJsonMessage(message.GetType().FullName!, serializer.Serialize(message));
+        }
+
+        private static Assembly? GetAssemblyNameContainingType(string typeName)
+        {
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                var t = assembly.GetType(typeName, false, true);
+                if (t != null) { return assembly; }
+            }
+
+            return null;
         }
     }
 }
