@@ -22,7 +22,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
             {
                 BootstrapServers = options.BootstrapServers,
                 ClientId = Dns.GetHostName()
-            };
+            }.WithAuthentication(options);
 
             try
             {

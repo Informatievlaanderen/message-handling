@@ -22,7 +22,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 GroupId = consumerGroupId,
                 AutoOffsetReset = AutoOffsetReset.Earliest,
                 EnableAutoCommit = false
-            };
+            }.WithAuthentication(options);
 
             var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
 
