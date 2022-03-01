@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 {
     using System;
@@ -20,7 +22,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
         public object? Map()
         {
             var assembly = GetAssemblyNameContainingType(Type);
-            var type = assembly.GetType(Type);
+            var type = assembly?.GetType(Type);
 
             return JsonConvert.DeserializeObject(Data, type!);
         }
@@ -40,15 +42,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
             return new KafkaJsonMessage(message.GetType().FullName!, serializer.Serialize(message));
         }
 
-        private static Assembly? GetAssemblyNameContainingType(string typeName)
-        {
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+        private static Assembly? GetAssemblyNameContainingType(string typeName) => AppDomain.CurrentDomain.GetAssemblies()
+            .Select(x => new
             {
-                var t = assembly.GetType(typeName, false, true);
-                if (t != null) { return assembly; }
-            }
-
-            return null;
-        }
+                Assembly = x,
+                Type = x.GetType(typeName, false, true)
+            })
+            .Where(x => x.Type != null)
+            .Select(x => x.Assembly)
+            .FirstOrDefault();
     }
 }
