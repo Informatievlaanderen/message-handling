@@ -37,7 +37,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 {
                     var consumeResult = consumer.Consume(TimeSpan.FromSeconds(3));
                     if (consumeResult == null) //if no message is found, returns null
+                    {
                         continue;
+                    }
 
                     var kafkaJsonMessage = serializer.Deserialize<KafkaJsonMessage>(consumeResult.Message.Value) ?? throw new ArgumentException("Kafka json message is null.");
                     var messageData = kafkaJsonMessage.Map() ?? throw new ArgumentException("Kafka message data is null.");
