@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/informatievlaanderen/message-handling/compare/v1.3.0...v1.3.1) (2022-02-17)
+
+
+### Bug Fixes
+
+* add kafka authentication extensions ([06366cc](https://github.com/informatievlaanderen/message-handling/commit/06366cc2aee9ff5dbaf16ed263f629b0280164c4))
+
 # [1.3.0](https://github.com/informatievlaanderen/message-handling/compare/v1.2.4...v1.3.0) (2022-02-16)
 
 
