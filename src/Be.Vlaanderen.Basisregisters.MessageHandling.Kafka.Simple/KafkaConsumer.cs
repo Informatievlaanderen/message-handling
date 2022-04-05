@@ -1,7 +1,9 @@
+using System.Linq;
+
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 {
-    using System;
-    using System.Threading;
+using System;
+using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
     using Extensions;
@@ -9,11 +11,12 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 
     public static class KafkaConsumer
     {
-        public static async Task<Result> Consume(
+        public static async Task<Result<KafkaJsonMessage>> Consume(
             KafkaOptions options,
             string consumerGroupId,
             string topic,
             Func<object, Task> messageHandler,
+            Offset? offset = null,
             CancellationToken cancellationToken = default)
         {
             var config = new ConsumerConfig
@@ -26,37 +29,47 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 
             var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
 
-            using var consumer = new ConsumerBuilder<Ignore, string>(config)
-                .SetValueDeserializer(Deserializers.Utf8)
-                .Build();
+            var consumerBuilder = new ConsumerBuilder<Ignore, string>(config)
+                .SetValueDeserializer(Deserializers.Utf8);
+            if (offset.HasValue)
+            {
+                consumerBuilder.SetPartitionsAssignedHandler((cons, topicPartitions) =>
+                {
+                    var partitionOffset = topicPartitions.Select(x => new TopicPartitionOffset(x.Topic, x.Partition, offset.Value));
+                    return partitionOffset;
+                });
+            }
+
+            using var consumer = consumerBuilder.Build();
             try
             {
                 consumer.Subscribe(topic);
 
+                var kafkaJsonMessage = new KafkaJsonMessage("", "");
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     var consumeResult = consumer.Consume(TimeSpan.FromSeconds(3));
                     if (consumeResult == null) //if no message is found, returns null
                     {
-                        continue;
+                        break;
                     }
 
-                    var kafkaJsonMessage = serializer.Deserialize<KafkaJsonMessage>(consumeResult.Message.Value) ?? throw new ArgumentException("Kafka json message is null.");
+                    kafkaJsonMessage = serializer.Deserialize<KafkaJsonMessage>(consumeResult.Message.Value) ?? throw new ArgumentException("Kafka json message is null.");
                     var messageData = kafkaJsonMessage.Map() ?? throw new ArgumentException("Kafka message data is null.");
 
                     await messageHandler(messageData);
                     consumer.Commit(consumeResult);
                 }
 
-                return Result.Success();
+                return Result<KafkaJsonMessage>.Success(kafkaJsonMessage);
             }
             catch (ConsumeException ex)
             {
-                return Result.Failure(ex.Error.Code.ToString(), ex.Error.Reason);
+                return Result<KafkaJsonMessage>.Failure(ex.Error.Code.ToString(), ex.Error.Reason);
             }
             catch (OperationCanceledException)
             {
-                return Result.Success();
+                return Result<KafkaJsonMessage>.Success(null);
             }
             finally
             {
