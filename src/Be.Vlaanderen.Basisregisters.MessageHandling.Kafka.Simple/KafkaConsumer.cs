@@ -39,18 +39,18 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 });
             }
 
+            var kafkaJsonMessage = new KafkaJsonMessage("", "");
             using var consumer = consumerBuilder.Build();
             try
             {
                 consumer.Subscribe(topic);
 
-                var kafkaJsonMessage = new KafkaJsonMessage("", "");
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     var consumeResult = consumer.Consume(TimeSpan.FromSeconds(3));
                     if (consumeResult == null) //if no message is found, returns null
                     {
-                        break;
+                        continue;
                     }
 
                     kafkaJsonMessage = serializer.Deserialize<KafkaJsonMessage>(consumeResult.Message.Value) ?? throw new ArgumentException("Kafka json message is null.");
@@ -68,7 +68,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
             }
             catch (OperationCanceledException)
             {
-                return Result<KafkaJsonMessage>.Success(null);
+                return Result<KafkaJsonMessage>.Success(kafkaJsonMessage);
             }
             finally
             {
