@@ -2,10 +2,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 {
     using Newtonsoft.Json;
 
-    public class KafkaOptions 
+    public class KafkaOptions
     {
         public string BootstrapServers { get; }
-        public string SaslUserName {get;}
+        public string SaslUserName { get; }
         public string SaslPassword { get; }
         public JsonSerializerSettings JsonSerializerSettings { get; }
 

@@ -11,8 +11,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
     public static class KafkaProducer
     {
         public static async Task<Result<T>> Produce<T>(
-            KafkaOptions options,
-            string topic,
+            KafkaProducerOptions options,
             string key,
             T message,
             CancellationToken cancellationToken = default)
@@ -34,7 +33,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                     .SetValueSerializer(Serializers.Utf8)
                     .Build();
 
-                _ = await producer.ProduceAsync(new TopicPartition(topic, new Partition(0)), new Message<string, string> { Key = key, Value = serializer.Serialize(kafkaJsonMessage) }, cancellationToken);
+                _ = await producer.ProduceAsync(new TopicPartition(options.Topic, new Partition(0)), new Message<string, string> { Key = key, Value = serializer.Serialize(kafkaJsonMessage) }, cancellationToken);
                 return Result<T>.Success(message);
             }
             catch (ProduceException<Null, T> ex)

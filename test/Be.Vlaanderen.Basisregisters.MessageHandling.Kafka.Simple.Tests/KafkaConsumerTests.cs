@@ -11,20 +11,21 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.Tests
         public async Task ConsumeFromSpecificOffset(string bootstrapServers, string userName, string password, int offset)
         {
             var results = new List<Result<KafkaJsonMessage>>();
-            var options = new KafkaOptions(bootstrapServers, userName, password);
+            var producerOptions = new KafkaProducerOptions(bootstrapServers, userName, password, nameof(KafkaConsumerTests));
+            var consumerOptions = new KafkaConsumerOptions(bootstrapServers, userName, password, nameof(ConsumeFromSpecificOffset), nameof(KafkaConsumerTests), async obj =>
+            {
+                await Task.Yield();
+            }, offset);
 
-            await KafkaTopic.CreateTopic(options, nameof(KafkaConsumerTests));
+            await KafkaTopic.CreateTopic(producerOptions, nameof(KafkaConsumerTests));
             try
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    await KafkaProducer.Produce(options, nameof(KafkaConsumerTests), i.ToString(), new { i });
+                    await KafkaProducer.Produce(producerOptions, i.ToString(), new { i });
                 }
 
-                var result = await KafkaConsumer.Consume(options, nameof(ConsumeFromSpecificOffset), nameof(KafkaConsumerTests), async obj =>
-                {
-                    await Task.Yield();
-                }, offset);
+                var result = await KafkaConsumer.Consume(consumerOptions);
 
                 Assert.True(result.IsSuccess);
                 var expectedData = "{\"i\":2}";
@@ -32,7 +33,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.Tests
             }
             finally
             {
-                await KafkaTopic.DeleteTopic(options, nameof(KafkaConsumerTests));
+                await KafkaTopic.DeleteTopic(producerOptions, nameof(KafkaConsumerTests));
             }
         }
     }

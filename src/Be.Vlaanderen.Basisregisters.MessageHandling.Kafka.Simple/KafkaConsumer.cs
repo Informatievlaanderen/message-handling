@@ -11,17 +11,13 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
     public static class KafkaConsumer
     {
         public static async Task<Result<KafkaJsonMessage>> Consume(
-            KafkaOptions options,
-            string consumerGroupId,
-            string topic,
-            Func<object, Task> messageHandler,
-            Offset? offset = null,
+            KafkaConsumerOptions options,
             CancellationToken cancellationToken = default)
         {
             var config = new ConsumerConfig
             {
                 BootstrapServers = options.BootstrapServers,
-                GroupId = consumerGroupId,
+                GroupId = options.ConsumerGroupId,
                 AutoOffsetReset = AutoOffsetReset.Earliest,
                 EnableAutoCommit = false
             }.WithAuthentication(options);
@@ -30,11 +26,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 
             var consumerBuilder = new ConsumerBuilder<Ignore, string>(config)
                 .SetValueDeserializer(Deserializers.Utf8);
-            if (offset.HasValue)
+            if (options.Offset.HasValue)
             {
                 consumerBuilder.SetPartitionsAssignedHandler((cons, topicPartitions) =>
                 {
-                    var partitionOffset = topicPartitions.Select(x => new TopicPartitionOffset(x.Topic, x.Partition, offset.Value));
+                    var partitionOffset = topicPartitions.Select(x => new TopicPartitionOffset(x.Topic, x.Partition, options.Offset.Value));
                     return partitionOffset;
                 });
             }
@@ -43,20 +39,21 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
             using var consumer = consumerBuilder.Build();
             try
             {
-                consumer.Subscribe(topic);
+                consumer.Subscribe(options.Topic);
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
                     var consumeResult = consumer.Consume(TimeSpan.FromSeconds(3));
                     if (consumeResult == null) //if no message is found, returns null
                     {
+                        await Task.Delay(options.NoMessageFoundDelay, cancellationToken);
                         continue;
                     }
 
                     kafkaJsonMessage = serializer.Deserialize<KafkaJsonMessage>(consumeResult.Message.Value) ?? throw new ArgumentException("Kafka json message is null.");
                     var messageData = kafkaJsonMessage.Map() ?? throw new ArgumentException("Kafka message data is null.");
 
-                    await messageHandler(messageData);
+                    await options.MessageHandler(messageData);
                     consumer.Commit(consumeResult);
                 }
 
