@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple</RootNamespace>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Library.props" />
+  <ItemGroup>
+    <Content Remove="C:\Users\lukve\.nuget\packages\librdkafka.redist\1.8.2\build\..\runtimes\win-x64\native\**" />
+    <Content Remove="C:\Users\lukve\.nuget\packages\librdkafka.redist\1.8.2\build\..\runtimes\win-x86\native\**" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>
