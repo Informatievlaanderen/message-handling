@@ -8,13 +8,13 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
         public BasicAWSCredentials Credentials { get; set; }
         public JsonSerializerSettings JsonSerializerSettings { get; }
 
-        public SqsOptions(string queueUrl, BasicAWSCredentials credentials, JsonSerializerSettings? jsonSerializerSettings = null)
+        public SqsOptions(BasicAWSCredentials credentials, JsonSerializerSettings? jsonSerializerSettings = null)
         {
             Credentials = credentials;
             JsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
         }
 
-        public SqsOptions(string queueUrl, string accessKey, string secretKey, JsonSerializerSettings? jsonSerializerSettings = null)
+        public SqsOptions(string accessKey, string secretKey, JsonSerializerSettings? jsonSerializerSettings = null)
         {
             Credentials = new BasicAWSCredentials(accessKey, secretKey);
             JsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
