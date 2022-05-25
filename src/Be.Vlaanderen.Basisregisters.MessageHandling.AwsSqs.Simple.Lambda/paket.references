@@ -1,0 +1,10 @@
+AWSSDK.SQS
+Amazon.Lambda.Core
+Amazon.Lambda.Serialization.Json
+Amazon.Lambda.SQSEvents
+Microsoft.Extensions.Configuration.Json
+Microsoft.Extensions.DependencyInjection
+Newtonsoft.Json
+
+SourceLink.Embed.AllSourceFiles
+SourceLink.Copy.PdbFiles

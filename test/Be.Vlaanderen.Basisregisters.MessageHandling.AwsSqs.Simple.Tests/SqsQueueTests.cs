@@ -1,16 +1,16 @@
-using System.Threading;
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class SqsQueueTests
     {
         [Theory(Skip = "Needs theory data")]
-        [InlineData("", "", "", -1)]
-        public async Task CreateListDeleteQueue(string queueName, string accessKey, string secretKey, int expectedResult)
+        [InlineData("", "")]
+        public async Task CreateListDeleteQueue(string accessKey, string secretKey)
         {
-            var options = new SqsOptions(queueName, accessKey, secretKey);
+            var options = new SqsOptions(accessKey, secretKey);
 
             await SqsQueue.CreateQueue(options, nameof(SqsQueueTests), CancellationToken.None);
             var topicNames = await SqsQueue.ListQueues(options, default);
