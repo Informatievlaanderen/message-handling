@@ -1,7 +1,9 @@
-AWSSDK.SQS
 Amazon.Lambda.Core
 Amazon.Lambda.Serialization.Json
 Amazon.Lambda.SQSEvents
+Microsoft.Extensions.Configuration
+Microsoft.Extensions.Configuration.EnvironmentVariables
+Microsoft.Extensions.Configuration.FileExtensions
 Microsoft.Extensions.Configuration.Json
 Microsoft.Extensions.DependencyInjection
 Newtonsoft.Json

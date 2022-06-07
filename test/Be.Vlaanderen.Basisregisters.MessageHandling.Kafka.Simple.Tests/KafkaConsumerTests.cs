@@ -10,7 +10,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.Tests
         [InlineData("", "", "", 2)]
         public async Task ConsumeFromSpecificOffset(string bootstrapServers, string userName, string password, int offset)
         {
-            var results = new List<Result<KafkaJsonMessage>>();
             var producerOptions = new KafkaProducerOptions(bootstrapServers, userName, password, nameof(KafkaConsumerTests));
             var consumerOptions = new KafkaConsumerOptions(bootstrapServers, userName, password, nameof(ConsumeFromSpecificOffset), nameof(KafkaConsumerTests), async obj =>
             {
@@ -28,7 +27,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.Tests
                 var result = await KafkaConsumer.Consume(consumerOptions);
 
                 Assert.True(result.IsSuccess);
-                var expectedData = "{\"i\":2}";
+                const string expectedData = "{\"i\":2}";
                 Assert.Equal(expectedData, result.Message?.Data);
             }
             finally

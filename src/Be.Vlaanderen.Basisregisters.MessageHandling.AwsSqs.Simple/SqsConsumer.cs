@@ -1,6 +1,7 @@
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Amazon.SQS;
@@ -18,24 +19,30 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
         {
             var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
 
-            var message = new Message();
             var sqsJsonMessage = new SqsJsonMessage();
-            using var client = new AmazonSQSClient(options.Credentials);
+            using var client = new AmazonSQSClient(options.Credentials, options.RegionEndpoint);
+
+            const string messageGroupId = "MessageGroupId";
+            var request = new ReceiveMessageRequest(queueUrl) { AttributeNames = new List<string> { messageGroupId } };
             try
             {
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    var response = await client.ReceiveMessageAsync(queueUrl, cancellationToken);
-                    if (response.Messages.Count > 0)
+                    var response = await client.ReceiveMessageAsync(request, cancellationToken);
+                    if (response.Messages.Count == 0)
                     {
-                        continue;
+                        break;
                     }
 
-                    message = response.Messages[0];
+                    var message = response.Messages[0];
+                    //var groupId = message.Attributes[messageGroupId];
+
                     sqsJsonMessage = serializer.Deserialize<SqsJsonMessage>(message.Body) ?? throw new ArgumentException("SQS json message is null.");
                     var messageData = sqsJsonMessage.Map() ?? throw new ArgumentException("SQS message data is null.");
 
                     await messageHandler(messageData);
+
+                    await client.DeleteMessageAsync(queueUrl, message.ReceiptHandle, cancellationToken);
                 }
 
                 return Result<SqsJsonMessage>.Success(sqsJsonMessage);
@@ -47,10 +54,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
             catch (OperationCanceledException)
             {
                 return Result<SqsJsonMessage>.Success(sqsJsonMessage);
-            }
-            finally
-            {
-                await client.DeleteMessageAsync(queueUrl, message.ReceiptHandle, cancellationToken);
             }
         }
     }

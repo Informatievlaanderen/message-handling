@@ -13,13 +13,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Lambda
 
     public class SqsLambdaFunction
     {
-        public ServiceProvider ServiceProvider { get; }
+        private readonly ServiceProvider _serviceProvider;
+
+        public IConfigureService ConfigureService { get; set; }
 
         public SqsLambdaFunction()
         {
             var services = new ServiceCollection();
             ConfigureServices(services);
-            ServiceProvider = services.BuildServiceProvider();
+            _serviceProvider = services.BuildServiceProvider();
+
+            ConfigureService = _serviceProvider.GetRequiredService<IConfigureService>();
         }
 
         public async Task HandleSqsEvent(SQSEvent sqsEvent, ILambdaContext context)
@@ -42,6 +46,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Lambda
 
         private void ConfigureServices(ServiceCollection services)
         {
+            services.AddTransient<IEnvironmentService, EnvironmentService>();
+            services.AddTransient<IConfigureService, ConfigureService>();
             services.AddTransient<IMessageHandler, MessageHandler>();
         }
 
@@ -50,7 +56,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Lambda
             await Task.Yield();
             var messageData = sqsJsonMessage.Map() ?? throw new ArgumentException("SQS message data is null.");
 
-            var messageHandler = ServiceProvider.GetRequiredService<IMessageHandler>();
+            var messageHandler = _serviceProvider.GetRequiredService<IMessageHandler>();
             await messageHandler.HandleMessage(messageData);
         }
     }
