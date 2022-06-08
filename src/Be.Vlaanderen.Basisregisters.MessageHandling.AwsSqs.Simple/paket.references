@@ -1,3 +1,4 @@
+AWSSDK.Core
 AWSSDK.SQS
 Microsoft.Extensions.Configuration.Json
 Microsoft.Extensions.DependencyInjection

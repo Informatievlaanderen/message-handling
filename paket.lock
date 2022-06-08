@@ -1,11 +1,6 @@
 RESTRICTION: == net6.0
 NUGET
   remote: https://api.nuget.org/v3/index.json
-    Amazon.Lambda.Core (2.1)
-    Amazon.Lambda.Serialization.Json (2.0)
-      Amazon.Lambda.Core (>= 2.0)
-      Newtonsoft.Json (>= 9.0.1)
-    Amazon.Lambda.SQSEvents (2.1)
     Autofac (6.3)
       System.Diagnostics.DiagnosticSource (>= 4.7.1)
     Autofac.Extensions.DependencyInjection (7.2)

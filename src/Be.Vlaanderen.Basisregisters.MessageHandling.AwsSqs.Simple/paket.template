@@ -17,6 +17,8 @@ description Message handling with AWS SQS.
 dependencies
   framework: net6.0
     Microsoft.Extensions.Logging >= LOCKEDVERSION
+    AWSSDK.Core >= LOCKEDVERSION
+    AWSSDK.SQS >= LOCKEDVERSION
 
 files
   bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.dll => lib\net6.0

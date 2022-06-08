@@ -15,10 +15,8 @@ nuget Be.Vlaanderen.Basisregisters.Api 18.0.0
 nuget RabbitMQ.Client 6.2.4
 nuget Polly 7.2.3
 
+nuget AWSSDK.Core 3.7.11.5
 nuget AWSSDK.SQS 3.7.2.58
-nuget Amazon.Lambda.Core 2.1.0
-nuget Amazon.Lambda.Serialization.Json 2.0.0
-nuget Amazon.Lambda.SQSEvents 2.1.0
 
 nuget Confluent.Kafka 1.8.2
 
