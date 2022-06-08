@@ -23,15 +23,18 @@ supportedRuntimeIdentifiers <- [ "linux-x64" ]
 
 // Library ------------------------------------------------------------------------
 Target.create "Lib_Build" (fun _ ->
+    buildSource "Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple"
     buildSource "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq"
     buildSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
 )
 
 Target.create "Lib_Publish" (fun _ ->
+    publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple"
     publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
 )
 
 Target.create "Lib_Pack" (fun _ ->
+    pack "Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple"
     pack "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
 )
 
