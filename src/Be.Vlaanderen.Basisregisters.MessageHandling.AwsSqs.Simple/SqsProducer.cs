@@ -14,6 +14,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
             SqsOptions options,
             string queueUrl,
             T message,
+            string groupId = "",
             CancellationToken cancellationToken = default)
             where T : class
         {
@@ -24,7 +25,12 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
                 var json = serializer.Serialize(sqsJsonMessage);
 
                 using var client = new AmazonSQSClient(options.Credentials, options.RegionEndpoint);
-                var request = new SendMessageRequest(queueUrl, json) { MessageGroupId = options.GroupId };
+                var request = new SendMessageRequest(queueUrl, json);
+                if (!string.IsNullOrEmpty(groupId))
+                {
+                    request.MessageGroupId = groupId;
+                }
+
                 _ = await client.SendMessageAsync(request, cancellationToken);
                 
                 return Result<T>.Success(message);

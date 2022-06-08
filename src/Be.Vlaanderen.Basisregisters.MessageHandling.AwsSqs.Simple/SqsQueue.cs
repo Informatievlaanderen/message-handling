@@ -22,16 +22,16 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
             return response.QueueUrl;
         }
 
-        public static async Task<string> CreateQueue(SqsOptions options, string queueName, CancellationToken cancellationToken = default)
+        public static async Task<string> CreateQueue(SqsOptions options, string queueName, bool isFifoQueue = false, CancellationToken cancellationToken = default)
         {
             using var client = new AmazonSQSClient(options.Credentials, options.RegionEndpoint);
 
-            if (options.IsFifoQueue)
+            if (isFifoQueue)
             {
                 queueName += ".fifo";
             }
 
-            var attributes = options.IsFifoQueue
+            var attributes = isFifoQueue
                 ? new Dictionary<string, string> { [QueueAttributeName.FifoQueue] = "true", [QueueAttributeName.ContentBasedDeduplication] = "true" }
                 : new Dictionary<string, string>();
 

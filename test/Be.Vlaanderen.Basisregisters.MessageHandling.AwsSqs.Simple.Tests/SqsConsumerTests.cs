@@ -14,14 +14,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
         public async Task Consume(string accessKey, string secretKey, string sessionToken)
         {
             var regionEndpoint = RegionEndpoint.EUWest1;
-            var options = new SqsOptions(accessKey, secretKey, sessionToken, regionEndpoint, true, Guid.NewGuid().ToString("D"));
+            var options = new SqsOptions(accessKey, secretKey, sessionToken, regionEndpoint);
 
             var queueUrl = await SqsQueue.CreateQueue(options, nameof(SqsConsumerTests));
             try
             {
                 const int i = 2;
                 var iString = i.ToString();
-                await SqsProducer.Produce(options, queueUrl, iString);
+                await SqsProducer.Produce(options, queueUrl, iString, Guid.NewGuid().ToString("D"));
 
                 var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
 
