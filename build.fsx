@@ -19,7 +19,7 @@ let buildTest = buildTest assemblyVersionNumber
 let publishSource = publish assemblyVersionNumber
 let pack = packSolution nugetVersionNumber
 
-supportedRuntimeIdentifiers <- [ "linux-x64" ]
+supportedRuntimeIdentifiers <- [ "linux-x64" ] 
 
 // Library ------------------------------------------------------------------------
 Target.create "Lib_Build" (fun _ ->
