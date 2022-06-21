@@ -1,3 +1,10 @@
+## [4.1.4](https://github.com/informatievlaanderen/message-handling/compare/v4.1.3...v4.1.4) (2022-06-08)
+
+
+### Bug Fixes
+
+* change AWS SQS call interface ([3890d6f](https://github.com/informatievlaanderen/message-handling/commit/3890d6f4848a884605535277c7e82f1c5bd08f2a))
+
 ## [4.1.3](https://github.com/informatievlaanderen/message-handling/compare/v4.1.2...v4.1.3) (2022-06-08)
 
 
