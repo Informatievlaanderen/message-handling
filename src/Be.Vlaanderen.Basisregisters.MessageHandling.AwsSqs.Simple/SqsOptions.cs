@@ -6,9 +6,20 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 
     public class SqsOptions 
     {
-        public SessionAWSCredentials Credentials { get; }
+        public AWSCredentials Credentials { get; }
         public RegionEndpoint RegionEndpoint { get; }
         public JsonSerializerSettings JsonSerializerSettings { get; }
+
+        public SqsOptions(BasicAWSCredentials credentials, RegionEndpoint regionEndpoint, JsonSerializerSettings? jsonSerializerSettings = null)
+        {
+            Credentials = credentials;
+            RegionEndpoint = regionEndpoint;
+            JsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
+        }
+
+        public SqsOptions(string accessKey, string secretKey, RegionEndpoint regionEndpoint, JsonSerializerSettings? jsonSerializerSettings = null)
+            : this(new BasicAWSCredentials(accessKey, secretKey), regionEndpoint, jsonSerializerSettings)
+        { }
 
         public SqsOptions(SessionAWSCredentials credentials, RegionEndpoint regionEndpoint, JsonSerializerSettings? jsonSerializerSettings = null)
         {
