@@ -24,7 +24,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
                 var sqsJsonMessage = SqsJsonMessage.Create(message, serializer);
                 var json = serializer.Serialize(sqsJsonMessage);
 
-                using var client = new AmazonSQSClient(options.Credentials, options.RegionEndpoint);
+                using var client = new AmazonSQSClient(options.Credentials);
                 var request = new SendMessageRequest(queueUrl, json);
                 if (!string.IsNullOrEmpty(groupId))
                 {

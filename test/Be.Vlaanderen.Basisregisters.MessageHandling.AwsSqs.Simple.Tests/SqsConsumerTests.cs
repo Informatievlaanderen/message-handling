@@ -2,7 +2,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
 {
     using System;
     using System.Threading.Tasks;
-    using Amazon;
     using Extensions;
     using Newtonsoft.Json;
     using Xunit;
@@ -13,8 +12,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
         [InlineData("", "", "")]
         public async Task Consume(string accessKey, string secretKey, string sessionToken)
         {
-            var regionEndpoint = RegionEndpoint.EUWest1;
-            var options = new SqsOptions(accessKey, secretKey, sessionToken, regionEndpoint);
+            var options = new SqsOptions(accessKey, secretKey, sessionToken);
 
             var queueUrl = await SqsQueue.CreateQueue(options, nameof(SqsConsumerTests));
             try
