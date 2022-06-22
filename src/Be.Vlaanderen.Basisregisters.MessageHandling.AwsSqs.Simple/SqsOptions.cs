@@ -10,7 +10,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
         public RegionEndpoint RegionEndpoint { get; }
         public JsonSerializerSettings JsonSerializerSettings { get; }
 
-        public SqsOptions(RegionEndpoint? regionEndpoint, JsonSerializerSettings? jsonSerializerSettings)
+        public SqsOptions(RegionEndpoint? regionEndpoint = null, JsonSerializerSettings? jsonSerializerSettings = null)
         {
             RegionEndpoint = regionEndpoint ?? RegionEndpoint.EUWest1;
             JsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
