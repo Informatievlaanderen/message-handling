@@ -9,7 +9,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
         [InlineData("", "", "")]
         public async Task CreateListDeleteQueue(string accessKey, string secretKey, string sessionToken)
         {
-            var options = new SqsOptions(accessKey, secretKey, sessionToken);
+            var options = new SqsOptions(null, null);
 
             await SqsQueue.CreateQueue(options, nameof(SqsQueueTests));
             var topicNames = await SqsQueue.ListQueues(options);

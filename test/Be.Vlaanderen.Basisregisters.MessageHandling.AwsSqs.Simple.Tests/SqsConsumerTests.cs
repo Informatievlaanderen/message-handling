@@ -12,7 +12,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
         [InlineData("", "", "")]
         public async Task Consume(string accessKey, string secretKey, string sessionToken)
         {
-            var options = new SqsOptions(accessKey, secretKey, sessionToken);
+            var options = new SqsOptions(null, null);
 
             var queueUrl = await SqsQueue.CreateQueue(options, nameof(SqsConsumerTests));
             try

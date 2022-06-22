@@ -19,10 +19,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
         {
             var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
 
-            var sqsJsonMessage = new SqsJsonMessage();
-            using var client = new AmazonSQSClient(options.Credentials);
+            var config = new AmazonSQSConfig { RegionEndpoint = options.RegionEndpoint };
+            using var client = new AmazonSQSClient(config);
 
             const string messageGroupId = "MessageGroupId";
+            var sqsJsonMessage = new SqsJsonMessage();
             var request = new ReceiveMessageRequest(queueUrl) { AttributeNames = new List<string> { messageGroupId } };
             try
             {
