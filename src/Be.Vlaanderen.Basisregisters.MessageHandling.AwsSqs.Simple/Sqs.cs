@@ -13,7 +13,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
             {
                 queueUrl = await SqsQueue.CreateQueueIfNotExists(sqsOptions, queueName, true, cancellationToken);
             }
-            await SqsProducer.Produce(sqsOptions, queueUrl, message, queueOptions.MessageGroupId, cancellationToken);
+            await SqsProducer.Produce(sqsOptions, queueUrl, message, queueOptions.MessageGroupId, queueOptions.MessageDeduplicationId, cancellationToken);
 
             return true;
         }

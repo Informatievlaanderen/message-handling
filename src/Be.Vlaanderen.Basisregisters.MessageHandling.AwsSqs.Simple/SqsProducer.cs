@@ -15,6 +15,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
             string queueUrl,
             T message,
             string groupId = "",
+            string deduplicationId = "",
             CancellationToken cancellationToken = default)
             where T : class
         {
@@ -30,6 +31,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
                 if (!string.IsNullOrEmpty(groupId))
                 {
                     request.MessageGroupId = groupId;
+                }
+
+                if (!string.IsNullOrEmpty(deduplicationId))
+                {
+                    request.MessageDeduplicationId = deduplicationId;
                 }
 
                 _ = await client.SendMessageAsync(request, cancellationToken);
