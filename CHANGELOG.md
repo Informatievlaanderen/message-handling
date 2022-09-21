@@ -1,3 +1,10 @@
+## [4.3.1](https://github.com/informatievlaanderen/message-handling/compare/v4.3.0...v4.3.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* add position method to consumer ([c8d05b4](https://github.com/informatievlaanderen/message-handling/commit/c8d05b431e9c7d43e81b186fbdc718cc0186bffb))
+
 # [4.3.0](https://github.com/informatievlaanderen/message-handling/compare/v4.2.3...v4.3.0) (2022-09-05)
 
 
