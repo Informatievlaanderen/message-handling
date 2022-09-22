@@ -21,6 +21,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
         {
             try
             {
+                if (!Uri.IsWellFormedUriString(queueUrl, UriKind.Absolute))
+                {
+                    throw new ArgumentException("queueUrl is not a valid uri", nameof(queueUrl));
+                }
+
                 var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
                 var sqsJsonMessage = SqsJsonMessage.Create(message, serializer);
                 var json = serializer.Serialize(sqsJsonMessage);
