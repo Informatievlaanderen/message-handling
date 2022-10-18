@@ -1,3 +1,10 @@
+# [4.5.0](https://github.com/informatievlaanderen/message-handling/compare/v4.4.0...v4.5.0) (2022-10-18)
+
+
+### Features
+
+* add multiple partition option ([cdf4c9c](https://github.com/informatievlaanderen/message-handling/commit/cdf4c9caacf1fb3f7f157c09f4f8d9c34ea82e56))
+
 # [4.4.0](https://github.com/informatievlaanderen/message-handling/compare/v4.3.2...v4.4.0) (2022-10-18)
 
 
