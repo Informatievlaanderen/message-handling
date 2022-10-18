@@ -24,7 +24,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
 
             try
             {
-                await ProduceMessage(options, key, message, cancellationToken, config);
+                await ProduceMessage(options, config, key, message, cancellationToken);
 
                 return Result.Success();
             }
@@ -56,7 +56,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 var serializer = JsonSerializer.CreateDefault(options.JsonSerializerSettings);
                 var kafkaJsonMessage = KafkaJsonMessage.Create(message, serializer);
 
-                await ProduceMessage(options, key, serializer.Serialize(kafkaJsonMessage), cancellationToken, config);
+                await ProduceMessage(options, config, key, serializer.Serialize(kafkaJsonMessage), cancellationToken);
                 return Result<T>.Success(message);
             }
             catch (ProduceException<Null, T> ex)
@@ -69,16 +69,27 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
             }
         }
 
-        private static async Task ProduceMessage(KafkaProducerOptions options, string key, string message,
-            CancellationToken cancellationToken, ProducerConfig config)
+        private static async Task ProduceMessage(
+            KafkaProducerOptions options,
+            ProducerConfig config,
+            string key,
+            string message,
+            CancellationToken cancellationToken)
         {
             using var producer = new ProducerBuilder<string, string>(config)
                 .SetKeySerializer(Serializers.Utf8)
                 .SetValueSerializer(Serializers.Utf8)
                 .Build();
 
-            _ = await producer.ProduceAsync(new TopicPartition(options.Topic, new Partition(0)),
+            if (options.UseSinglePartition)
+            {
+                _ = await producer.ProduceAsync(new TopicPartition(options.Topic, new Partition(0)),
                     new Message<string, string> { Key = key, Value = message }, cancellationToken);
+            }
+            else
+            {
+                _ = await producer.ProduceAsync(options.Topic, new Message<string, string> { Key = key, Value = message }, cancellationToken);
+            }
         }
     }
 }
