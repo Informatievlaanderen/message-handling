@@ -72,5 +72,21 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 consumer.Unsubscribe();
             }
         }
+
+        public static Offset Position(KafkaConsumerOptions options)
+        {
+            var config = new ConsumerConfig
+            {
+                BootstrapServers = options.BootstrapServers,
+                GroupId = options.ConsumerGroupId,
+                AutoOffsetReset = AutoOffsetReset.Earliest,
+                EnableAutoCommit = false
+            }.WithAuthentication(options);
+
+            using var consumer = new ConsumerBuilder<Ignore, string>(config)
+                .SetValueDeserializer(Deserializers.Utf8)
+                .Build();
+            return consumer.Position(new TopicPartition(options.Topic, 0));
+        }
     }
 }

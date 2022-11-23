@@ -1,3 +1,31 @@
+# [4.5.0](https://github.com/informatievlaanderen/message-handling/compare/v4.4.0...v4.5.0) (2022-10-18)
+
+
+### Features
+
+* add multiple partition option ([cdf4c9c](https://github.com/informatievlaanderen/message-handling/commit/cdf4c9caacf1fb3f7f157c09f4f8d9c34ea82e56))
+
+# [4.4.0](https://github.com/informatievlaanderen/message-handling/compare/v4.3.2...v4.4.0) (2022-10-18)
+
+
+### Features
+
+* add Kafka Produce method without serialization ([d2f18b3](https://github.com/informatievlaanderen/message-handling/commit/d2f18b323f2975acf4615e9396d7c3672f1f8917))
+
+## [4.3.2](https://github.com/informatievlaanderen/message-handling/compare/v4.3.1...v4.3.2) (2022-09-22)
+
+
+### Bug Fixes
+
+* copy to queue requires url ([32ee174](https://github.com/informatievlaanderen/message-handling/commit/32ee174207045a5c848276366ac7bfabe5ae911c))
+
+## [4.3.1](https://github.com/informatievlaanderen/message-handling/compare/v4.3.0...v4.3.1) (2022-09-21)
+
+
+### Bug Fixes
+
+* add position method to consumer ([c8d05b4](https://github.com/informatievlaanderen/message-handling/commit/c8d05b431e9c7d43e81b186fbdc718cc0186bffb))
+
 # [4.3.0](https://github.com/informatievlaanderen/message-handling/compare/v4.2.3...v4.3.0) (2022-09-05)
 
 

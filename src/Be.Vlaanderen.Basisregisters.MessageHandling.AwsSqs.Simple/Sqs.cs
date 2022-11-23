@@ -5,10 +5,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 
     public static class Sqs
     {
-        public static async Task<bool> CopyToQueue<T>(SqsOptions sqsOptions, string queueName, T message, SqsQueueOptions queueOptions, CancellationToken cancellationToken)
+        public static async Task<bool> CopyToQueue<T>(SqsOptions sqsOptions, string queueUrl, T message, SqsQueueOptions queueOptions, CancellationToken cancellationToken)
             where T : class
         {
-            var queueUrl = SqsQueue.ParseQueueNameFromQueueUrl(queueName);
+            var queueName = SqsQueue.ParseQueueNameFromQueueUrl(queueUrl);
             if (queueOptions.CreateQueueIfNotExists)
             {
                 queueUrl = await SqsQueue.CreateQueueIfNotExists(sqsOptions, queueName, true, cancellationToken);

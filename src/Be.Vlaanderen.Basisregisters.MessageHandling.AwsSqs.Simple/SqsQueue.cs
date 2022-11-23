@@ -56,7 +56,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 
             // check if queue exists
             var queues = await ListQueues(options, cancellationToken);
-            var queue = queues.FirstOrDefault(x => ParseQueueNameFromQueueUrl(queueName).Equals(queueName, StringComparison.OrdinalIgnoreCase));
+            var queue = queues.FirstOrDefault(x => ParseQueueNameFromQueueUrl(x).Equals(queueName, StringComparison.OrdinalIgnoreCase));
             return queue ?? await CreateQueue(options, queueName, isFifoQueue, cancellationToken);
         }
 
