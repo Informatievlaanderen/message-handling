@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32505.426
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq", "src\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.csproj", "{2881BE42-B01A-4A08-ACC9-583F970E030B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FAF99434-0837-4CCC-AA46-151A5683F1E9}"
@@ -31,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2881BE42-B01A-4A08-ACC9-583F970E030B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -56,7 +50,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2881BE42-B01A-4A08-ACC9-583F970E030B} = {C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}
 		{B4ADB8BC-0DA8-4FAF-919A-6B84E28812DD} = {C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}
 		{FED8A4AF-2393-4C08-BBC3-E6D73996BA64} = {37BD2D55-06B4-474E-AB22-BB9A8C75474A}
 		{96A10772-5E6B-455C-BB7A-D58E265482A6} = {C2BA730E-DE1E-4B90-8260-6BC7DCEC2312}
