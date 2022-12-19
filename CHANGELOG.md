@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/informatievlaanderen/message-handling/compare/v4.6.0...v4.6.1) (2022-12-19)
+
+
+### Bug Fixes
+
+* style to trigger build ([0b3ecfd](https://github.com/informatievlaanderen/message-handling/commit/0b3ecfd4e12c2b4d627b857978ce54e412e53095))
+
 # [4.6.0](https://github.com/informatievlaanderen/message-handling/compare/v4.5.0...v4.6.0) (2022-12-19)
 
 
