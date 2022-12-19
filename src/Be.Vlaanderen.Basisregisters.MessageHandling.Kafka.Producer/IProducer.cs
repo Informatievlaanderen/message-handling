@@ -4,6 +4,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
     using System.Threading;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Interface for a Kafka Producer
+    /// </summary>
     public interface IProducer
     {
         /// <summary>
