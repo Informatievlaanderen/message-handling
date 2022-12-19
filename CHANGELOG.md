@@ -1,3 +1,18 @@
+# [4.6.0](https://github.com/informatievlaanderen/message-handling/compare/v4.5.0...v4.6.0) (2022-12-19)
+
+
+### Bug Fixes
+
+* change workflow & add to sonar ([239a3ac](https://github.com/informatievlaanderen/message-handling/commit/239a3ac36589b7ecc34280e37f60436f3e2cf6be))
+* change workflow & add to sonar ([#141](https://github.com/informatievlaanderen/message-handling/issues/141)) ([aed8367](https://github.com/informatievlaanderen/message-handling/commit/aed8367f506a3c45a6f70f5a5b352ab4e20f4225))
+* no sonar ([71ded8b](https://github.com/informatievlaanderen/message-handling/commit/71ded8b651c5d6094f639e3652efe6eef34efdf8))
+* remove RabbitMq from sln ([3ea6cdc](https://github.com/informatievlaanderen/message-handling/commit/3ea6cdc8f3de0e554b07f2c320b830bb2fd59652))
+
+
+### Features
+
+* add kafka producer lib ([5cb7f77](https://github.com/informatievlaanderen/message-handling/commit/5cb7f77da1707fdbcb68a7069705071dd9fe996a))
+
 # [4.5.0](https://github.com/informatievlaanderen/message-handling/compare/v4.4.0...v4.5.0) (2022-10-18)
 
 
