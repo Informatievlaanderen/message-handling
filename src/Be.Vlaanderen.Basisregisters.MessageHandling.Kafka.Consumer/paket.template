@@ -1,8 +1,8 @@
 type file
 version 1.0.0
 
-id Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
-title Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
+id Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
+title Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
 
 authors Basisregisters Vlaanderen
 owners Digitaal Vlaanderen <https://vlaanderen.be/digitaal-vlaanderen>
@@ -15,12 +15,14 @@ licenseUrl https://opensource.org/licenses/MIT
 description Message handling with Kafka.
 
 dependencies
-  framework: net6.0    
-    Confluent.Kafka >= LOCKEDVERSION
+  framework: net6.0
+    Microsoft.Extensions.Logging >= LOCKEDVERSION
+    Microsoft.EntityFrameworkCore >= LOCKEDVERSION
     Newtonsoft.Json >= LOCKEDVERSION
+    Confluent.Kafka >= LOCKEDVERSION
 
 files
   bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.dll => lib\net6.0
   bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.pdb => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.dll => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.pdb => lib\net6.0
+  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.dll => lib\net6.0
+  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.pdb => lib\net6.0
