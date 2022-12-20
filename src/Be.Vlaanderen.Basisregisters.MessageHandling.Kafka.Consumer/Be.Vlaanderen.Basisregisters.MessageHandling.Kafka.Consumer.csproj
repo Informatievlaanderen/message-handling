@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Library.props" />
+  <ItemGroup>
+    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

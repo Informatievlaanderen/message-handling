@@ -33,6 +33,8 @@ Target.create "Lib_Test" (fun _ -> testSolution "Be.Vlaanderen.Basisregisters.Me
 Target.create "Lib_Publish" (fun _ ->
     publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple"
     publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple"
+    publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer"
+    publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer"
     publishSource "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer"
 )
 

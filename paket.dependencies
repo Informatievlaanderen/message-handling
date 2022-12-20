@@ -9,6 +9,9 @@ nuget Microsoft.Extensions.Configuration.Json 6.0.0
 nuget Microsoft.Extensions.Configuration.Binder 6.0.0
 nuget Microsoft.Extensions.Logging 6.0.0
 
+nuget Microsoft.EntityFrameworkCore 6.0.3
+nuget Microsoft.EntityFrameworkCore.SqlServer 6.0.3
+
 nuget Newtonsoft.Json 13.0.1
 
 nuget Be.Vlaanderen.Basisregisters.Api 18.0.0
@@ -36,6 +39,7 @@ nuget Be.Vlaanderen.Basisregisters.AggregateSource 6.0.0
 
 // TEST STUFF
 nuget Microsoft.NET.Test.Sdk 17.1.0
+nuget Microsoft.EntityFrameworkCore.InMemory 6.0.3
 nuget xunit 2.4.1
 nuget xunit.runner.visualstudio 2.4.3
 nuget xunit.categories 2.0.6

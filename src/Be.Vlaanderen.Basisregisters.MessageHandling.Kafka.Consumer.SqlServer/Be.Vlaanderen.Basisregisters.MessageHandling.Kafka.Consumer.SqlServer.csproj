@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Library.props" />
+  <ItemGroup>
+    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.csproj" />
+    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

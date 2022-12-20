@@ -1,5 +1,4 @@
-Confluent.Kafka
-Newtonsoft.Json
+Microsoft.EntityFrameworkCore.SqlServer
 
 SourceLink.Embed.AllSourceFiles
 SourceLink.Copy.PdbFiles
