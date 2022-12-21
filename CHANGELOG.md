@@ -1,3 +1,15 @@
+# [4.7.0](https://github.com/informatievlaanderen/message-handling/compare/v4.6.1...v4.7.0) (2022-12-21)
+
+
+### Bug Fixes
+
+* correct consumer test ([cfd31d5](https://github.com/informatievlaanderen/message-handling/commit/cfd31d5013e5ae2c2c718ae81fb18f7e01ba3ac3))
+
+
+### Features
+
+* add consumer packages ([cf38934](https://github.com/informatievlaanderen/message-handling/commit/cf3893420c23ea6589a2d8afe03be7b7384ab49f))
+
 ## [4.6.1](https://github.com/informatievlaanderen/message-handling/compare/v4.6.0...v4.6.1) (2022-12-19)
 
 
