@@ -2,8 +2,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoFixture;
@@ -65,13 +63,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
 
             await Task.Delay(1000);
 
-            var list = new FakeMessage?[10000];
-            messages.CopyTo(list!,0);
-
-            var expectedList = list.Where(x => x is not null).ToList();
-            expectedList.Should().NotBeEmpty();
-            expectedList.ToList()
-                .ForEach(fake => fake.Should().BeEquivalentTo(expectedFakeMessage));
+            messages.Count.Should().BeGreaterOrEqualTo(1);
+            messages.TryTake(out var result).Should().BeTrue();
+            result.Should().BeEquivalentTo(expectedFakeMessage);
         }
     }
 }
