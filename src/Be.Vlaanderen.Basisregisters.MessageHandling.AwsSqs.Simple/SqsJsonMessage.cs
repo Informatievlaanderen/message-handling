@@ -1,9 +1,8 @@
-using System.IO;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using System.Linq;
     using System.Reflection;
     using Extensions;
