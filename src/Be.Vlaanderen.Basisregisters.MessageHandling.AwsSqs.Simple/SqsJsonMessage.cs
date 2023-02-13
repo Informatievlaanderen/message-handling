@@ -1,3 +1,5 @@
+using System.IO;
+
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 {
     using System;
@@ -22,12 +24,23 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
             Data = data;
         }
 
+        [Obsolete("Use overload with `JsonSerializer` instead")]
         public object? Map()
+        {
+            var serializer = JsonSerializer.CreateDefault();
+            serializer.CheckAdditionalContent = true;
+            return Map(serializer);
+        }
+
+        public object? Map(JsonSerializer serializer)
         {
             var assembly = GetAssemblyNameContainingType(Type);
             var type = assembly?.GetType(Type);
 
-            return JsonConvert.DeserializeObject(Data, type!);
+            using (var reader = new JsonTextReader(new StringReader(Data)))
+            {
+                return serializer.Deserialize(reader, type);
+            }
         }
 
         public static SqsJsonMessage Create<T>([DisallowNull] T message, JsonSerializer serializer)
