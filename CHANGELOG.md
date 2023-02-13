@@ -1,3 +1,11 @@
+## [4.7.1](https://github.com/informatievlaanderen/message-handling/compare/v4.7.0...v4.7.1) (2023-02-13)
+
+
+### Bug Fixes
+
+* add overload to SqsJsonMessage.Map with custom JsonSerializer ([41f91e1](https://github.com/informatievlaanderen/message-handling/commit/41f91e165176360fd65b6506f4176840416f0504))
+* move using to inside namespace ([7a72303](https://github.com/informatievlaanderen/message-handling/commit/7a7230311e23250b4bf4850ebdc83de81ba5bcf6))
+
 # [4.7.0](https://github.com/informatievlaanderen/message-handling/compare/v4.6.1...v4.7.0) (2022-12-21)
 
 
