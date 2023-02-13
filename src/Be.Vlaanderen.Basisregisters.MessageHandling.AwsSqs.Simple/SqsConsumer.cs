@@ -39,7 +39,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
                     //var groupId = message.Attributes[messageGroupId];
 
                     sqsJsonMessage = serializer.Deserialize<SqsJsonMessage>(message.Body) ?? throw new ArgumentException("SQS json message is null.");
-                    var messageData = sqsJsonMessage.Map() ?? throw new ArgumentException("SQS message data is null.");
+                    var messageData = sqsJsonMessage.Map(serializer) ?? throw new ArgumentException("SQS message data is null.");
 
                     await messageHandler(messageData);
 
