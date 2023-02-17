@@ -80,6 +80,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                     {
                         _logger.LogWarning(
                             $"Skipping already processed message at offset '{consumeResult.Offset.Value}' with idempotenceKey '{idempotenceKey}'.");
+                        _consumer.Commit(consumeResult);
                         continue;
                     }
 
