@@ -1,3 +1,10 @@
+## [4.7.2](https://github.com/informatievlaanderen/message-handling/compare/v4.7.1...v4.7.2) (2023-02-17)
+
+
+### Bug Fixes
+
+* consumer commit if processed message exists ([d541ddb](https://github.com/informatievlaanderen/message-handling/commit/d541ddbd3e6d0b6fb80a9b440a05b699fc2493fc))
+
 ## [4.7.1](https://github.com/informatievlaanderen/message-handling/compare/v4.7.0...v4.7.1) (2023-02-13)
 
 
