@@ -14,16 +14,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
         
         public static async Task<IEnumerable<string>> ListQueues(SqsOptions options, CancellationToken cancellationToken = default)
         {
-            var config = new AmazonSQSConfig { RegionEndpoint = options.RegionEndpoint };
-            using var client = new AmazonSQSClient(config);
+            using var client = options.CreateSqsClient();
             var response = await client.ListQueuesAsync((string?)null, cancellationToken);
             return response.QueueUrls;
         }
 
         public static async Task<string> GetQueueUrl(SqsOptions options, string queueName, CancellationToken cancellationToken = default)
         {
-            var config = new AmazonSQSConfig { RegionEndpoint = options.RegionEndpoint };
-            using var client = new AmazonSQSClient(config);
+            using var client = options.CreateSqsClient();
             var response = await client.GetQueueUrlAsync(queueName, cancellationToken);
             return response.QueueUrl;
         }
@@ -35,8 +33,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
                 queueName += DotFifo;
             }
 
-            var config = new AmazonSQSConfig { RegionEndpoint = options.RegionEndpoint };
-            using var client = new AmazonSQSClient(config);
+            using var client = options.CreateSqsClient();
 
             var attributes = isFifoQueue
                 ? new Dictionary<string, string> { [QueueAttributeName.FifoQueue] = "true", [QueueAttributeName.ContentBasedDeduplication] = "true" }
@@ -62,8 +59,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 
         public static async Task DeleteQueue(SqsOptions options, string queueUrl, CancellationToken cancellationToken = default)
         {
-            var config = new AmazonSQSConfig { RegionEndpoint = options.RegionEndpoint };
-            using var client = new AmazonSQSClient(config);
+            using var client = options.CreateSqsClient();
             _ = await client.DeleteQueueAsync(queueUrl, cancellationToken);
         }
 

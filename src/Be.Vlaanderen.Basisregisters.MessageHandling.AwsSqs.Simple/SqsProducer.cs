@@ -3,7 +3,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Amazon.SQS;
     using Amazon.SQS.Model;
     using Extensions;
     using Newtonsoft.Json;
@@ -30,8 +29,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
                 var sqsJsonMessage = SqsJsonMessage.Create(message, serializer);
                 var json = serializer.Serialize(sqsJsonMessage);
 
-                var config = new AmazonSQSConfig { RegionEndpoint = options.RegionEndpoint };
-                using var client = new AmazonSQSClient(config);
+                using var client = options.CreateSqsClient();
                 var request = new SendMessageRequest(queueUrl, json);
                 if (!string.IsNullOrEmpty(groupId))
                 {
