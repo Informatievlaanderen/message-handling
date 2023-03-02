@@ -1,3 +1,15 @@
+# [4.8.0](https://github.com/informatievlaanderen/message-handling/compare/v4.7.2...v4.8.0) (2023-03-02)
+
+
+### Bug Fixes
+
+* namespace ([e958c90](https://github.com/informatievlaanderen/message-handling/commit/e958c9028f599605781875d52fa0ead5f292a5cb))
+
+
+### Features
+
+* customizable creating of AmazonSQSClient ([9efd2e8](https://github.com/informatievlaanderen/message-handling/commit/9efd2e86f9b0523704da4e60ca6cb99b0822ba62))
+
 ## [4.7.2](https://github.com/informatievlaanderen/message-handling/compare/v4.7.1...v4.7.2) (2023-02-17)
 
 
