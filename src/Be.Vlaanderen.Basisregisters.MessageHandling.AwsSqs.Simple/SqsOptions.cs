@@ -1,9 +1,8 @@
-using Amazon.SQS;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 {
     using Amazon;
     using Amazon.Runtime;
+    using Amazon.SQS;
     using Newtonsoft.Json;
 
     public class SqsOptions
