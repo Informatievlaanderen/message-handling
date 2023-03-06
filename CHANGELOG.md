@@ -1,3 +1,10 @@
+## [4.8.1](https://github.com/informatievlaanderen/message-handling/compare/v4.8.0...v4.8.1) (2023-03-06)
+
+
+### Bug Fixes
+
+* make producer reliable ([fd3de6c](https://github.com/informatievlaanderen/message-handling/commit/fd3de6ca8a4d8c2f4b1d31b6400ae9e5fe5e884c))
+
 # [4.8.0](https://github.com/informatievlaanderen/message-handling/compare/v4.7.2...v4.8.0) (2023-03-02)
 
 
