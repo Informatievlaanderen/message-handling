@@ -27,14 +27,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.Tests
             var producerMock = new Mock<IProducer<string, string>>();
             producerMock
                 .Setup(x => x.ProduceAsync(It.IsAny<TopicPartition>(), It.IsAny<Message<string, string>>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new DeliveryResult<string, string> { Offset = new Offset(expectedOffset) });
+                .ReturnsAsync(new DeliveryResult<string, string>
+                {
+                    Offset = new Offset(expectedOffset),
+                    Status = PersistenceStatus.Persisted
+                });
 
             var producerOptions = new ProducerOptions(
                     _fixture.Create<BootstrapServers>(),
                     _fixture.Create<Topic>(),
-                    useSinglePartition: true,
-                    null)
-                .ConfigureEnableIdempotence(_fixture.Create<bool>()); ;
+                    useSinglePartition: true)
+                .ConfigureEnableIdempotence(_fixture.Create<bool>());
 
             var producer = new Producer(producerOptions, producerMock.Object);
 
@@ -58,6 +61,38 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.Tests
             result.Offset!.Value.Should().Be(new Kafka.Offset(expectedOffset));
         }
 
+        [Theory]
+        [InlineData(PersistenceStatus.NotPersisted)]
+        [InlineData(PersistenceStatus.PossiblyPersisted)]
+        public async Task TestProduceSinglePartition_PersistenceStatusNotEqualsPersisted(PersistenceStatus persistenceStatus)
+        {
+            var producerMock = new Mock<IProducer<string, string>>();
+            producerMock
+                .Setup(x => x.ProduceAsync(It.IsAny<TopicPartition>(), It.IsAny<Message<string, string>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new DeliveryResult<string, string>
+                {
+                    Status = persistenceStatus
+                });
+
+            var producerOptions = new ProducerOptions(
+                    _fixture.Create<BootstrapServers>(),
+                    _fixture.Create<Topic>(),
+                    useSinglePartition: true)
+                .ConfigureEnableIdempotence(_fixture.Create<bool>());
+
+            var producer = new Producer(producerOptions, producerMock.Object);
+
+            var result = await producer.Produce(
+                _fixture.Create<MessageKey>(),
+                _fixture.Create<string>(),
+                _fixture.CreateMany<MessageHeader>(),
+                CancellationToken.None);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be("Unknown");
+            result.ErrorReason.Should().Be($"PersistenceStatus was {persistenceStatus}");
+        }
+
         [Fact]
         public async Task TestProduceMultiPartition()
         {
@@ -65,14 +100,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.Tests
             var producerMock = new Mock<IProducer<string, string>>();
             producerMock
                 .Setup(x => x.ProduceAsync(It.IsAny<string>(), It.IsAny<Message<string, string>>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new DeliveryResult<string, string> { Offset = new Offset(expectedOffset) });
+                .ReturnsAsync(new DeliveryResult<string, string>
+                {
+                    Offset = new Offset(expectedOffset),
+                    Status = PersistenceStatus.Persisted
+                });
 
             var producerOptions = new ProducerOptions(
                     _fixture.Create<BootstrapServers>(),
                     _fixture.Create<Topic>(),
-                    useSinglePartition: false,
-                    null)
-                .ConfigureEnableIdempotence(_fixture.Create<bool>()); ;
+                    useSinglePartition: false)
+                .ConfigureEnableIdempotence(_fixture.Create<bool>());
 
             var producer = new Producer(producerOptions, producerMock.Object);
 
@@ -96,6 +134,38 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.Tests
             result.Offset!.Value.Should().Be(new Kafka.Offset(expectedOffset));
         }
 
+        [Theory]
+        [InlineData(PersistenceStatus.NotPersisted)]
+        [InlineData(PersistenceStatus.PossiblyPersisted)]
+        public async Task TestProduceMultiPartition_PersistenceStatusNotEqualsPersisted(PersistenceStatus persistenceStatus)
+        {
+            var producerMock = new Mock<IProducer<string, string>>();
+            producerMock
+                .Setup(x => x.ProduceAsync(It.IsAny<string>(), It.IsAny<Message<string, string>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new DeliveryResult<string, string>
+                {
+                    Status = persistenceStatus
+                });
+
+            var producerOptions = new ProducerOptions(
+                    _fixture.Create<BootstrapServers>(),
+                    _fixture.Create<Topic>(),
+                    useSinglePartition: false)
+                .ConfigureEnableIdempotence(_fixture.Create<bool>());
+
+            var producer = new Producer(producerOptions, producerMock.Object);
+
+            var result = await producer.Produce(
+                _fixture.Create<MessageKey>(),
+                _fixture.Create<string>(),
+                _fixture.CreateMany<MessageHeader>(),
+                CancellationToken.None);
+
+            result.IsSuccess.Should().BeFalse();
+            result.Error.Should().Be("Unknown");
+            result.ErrorReason.Should().Be($"PersistenceStatus was {persistenceStatus}");
+        }
+
         [Fact]
         public async Task TestProduceJsonMessageSinglePartition()
         {
@@ -103,14 +173,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.Tests
             var producerMock = new Mock<IProducer<string, string>>();
             producerMock
                 .Setup(x => x.ProduceAsync(It.IsAny<TopicPartition>(), It.IsAny<Message<string, string>>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new DeliveryResult<string, string> { Offset = new Offset(expectedOffset) });
+                .ReturnsAsync(new DeliveryResult<string, string>
+                {
+                    Offset = new Offset(expectedOffset),
+                    Status = PersistenceStatus.Persisted
+                });
 
             var producerOptions = new ProducerOptions(
                     _fixture.Create<BootstrapServers>(),
                     _fixture.Create<Topic>(),
-                    useSinglePartition: true,
-                    null)
-                .ConfigureEnableIdempotence(_fixture.Create<bool>()); ;
+                    useSinglePartition: true)
+                .ConfigureEnableIdempotence(_fixture.Create<bool>());
 
             var producer = new Producer(producerOptions, producerMock.Object);
 

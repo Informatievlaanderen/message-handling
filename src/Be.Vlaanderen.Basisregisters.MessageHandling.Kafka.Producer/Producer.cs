@@ -6,7 +6,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
     using System.Threading.Tasks;
     using Confluent.Kafka;
     using Newtonsoft.Json;
-    using Offset = Kafka.Offset;
+    using Offset = Offset;
 
     public sealed class Producer : IProducer, IDisposable
     {
@@ -44,6 +44,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
             {
                 return Result.Failure(ex.Error.Code.ToString(), ex.Error.Reason);
             }
+            catch (ProduceException<string, string> ex)
+            {
+                return Result.Failure(ex.Error.Code.ToString(), ex.Error.Reason);
+            }
             catch (OperationCanceledException ex)
             {
                 return Result.Failure(ex.Message, ex.Message);
@@ -67,6 +71,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
                 return Result.Success(offset);
             }
             catch (ProduceException<Null, JsonMessage> ex)
+            {
+                return Result.Failure(ex.Error.Code.ToString(), ex.Error.Reason);
+            }
+            catch (ProduceException<string, string> ex)
             {
                 return Result.Failure(ex.Error.Code.ToString(), ex.Error.Reason);
             }
@@ -98,6 +106,13 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
                     new Message<string, string> { Key = key, Value = message, Headers = kafkaHeaders },
                     cancellationToken);
 
+                if (result.Status != PersistenceStatus.Persisted)
+                {
+                    throw new ProduceException<string, string>(
+                        new Error(ErrorCode.Unknown, $"PersistenceStatus was {result.Status}"),
+                        result);
+                }
+
                 return new Offset(result.Offset.Value);
             }
             else
@@ -106,6 +121,13 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
                         _producerOptions.Topic,
                         new Message<string, string> { Key = key, Value = message, Headers = kafkaHeaders },
                         cancellationToken);
+
+                if (result.Status != PersistenceStatus.Persisted)
+                {
+                    throw new ProduceException<string, string>(
+                        new Error(ErrorCode.Unknown, $"PersistenceStatus was {result.Status}"),
+                        result);
+                }
 
                 return new Offset(result.Offset.Value);
             }

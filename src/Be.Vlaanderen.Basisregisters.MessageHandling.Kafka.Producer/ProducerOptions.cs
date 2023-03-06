@@ -46,7 +46,13 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
             {
                 BootstrapServers = BootstrapServers,
                 ClientId = Dns.GetHostName(),
-                EnableIdempotence = EnableIdempotence
+                EnableIdempotence = EnableIdempotence,
+
+                // https://thecloudblog.net/post/building-reliable-kafka-producers-and-consumers-in-net/
+                EnableDeliveryReports = true,
+                // Receive acknowledgement from all sync replicas
+                Acks = Acks.All,
+
             }.WithAuthentication(this);
         }
     }
