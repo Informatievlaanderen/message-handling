@@ -1,3 +1,10 @@
+## [4.8.2](https://github.com/informatievlaanderen/message-handling/compare/v4.8.1...v4.8.2) (2023-03-30)
+
+
+### Bug Fixes
+
+* bump awssdk packages ([0310291](https://github.com/informatievlaanderen/message-handling/commit/0310291dffa30dd95c752d4d8f48a46f961ad3bd))
+
 ## [4.8.1](https://github.com/informatievlaanderen/message-handling/compare/v4.8.0...v4.8.1) (2023-03-06)
 
 
