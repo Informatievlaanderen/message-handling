@@ -2,8 +2,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
 {
     using System;
     using System.Net;
+    using System.Threading.Tasks;
     using Confluent.Kafka;
     using Extensions;
+    using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
     using Offset = Offset;
 
@@ -40,6 +42,21 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
             return this;
         }
 
+        public async Task<ConsumerOptions> ConfigureOffsetFor<T>(
+            ConsumerName consumerName,
+            IDbContextFactory<T> consumerDbContextFactory)
+            where T : ConsumerDbContext<T>
+        {
+            await using var consumerDbContext = await consumerDbContextFactory.CreateDbContextAsync();
+            var result = await consumerDbContext.ConsumerStates.FindAsync(consumerName.ToString());
+
+            if (result is null)
+                return this;
+
+            ConfigureOffset(new Offset(result.Offset));
+            return this;
+        }
+
         public ConsumerOptions ConfigureSaslAuthentication(SaslAuthentication saslAuthentication)
         {
             SaslAuthentication = saslAuthentication;
@@ -64,7 +81,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                 BootstrapServers = BootstrapServers,
                 GroupId = ConsumerGroupId,
                 AutoOffsetReset = AutoOffsetReset.Earliest,
-                EnableAutoCommit = false
+                EnableAutoCommit = false,
             }.WithAuthentication(this);
         }
     }

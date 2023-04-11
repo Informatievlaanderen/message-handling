@@ -56,7 +56,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                 await ConsumerStates
                     .AddAsync(new ConsumerStateItem
                     {
-                        Name = consumerName.ToString(),
+                        Name = consumerName,
                         Offset = offset
                     }, cancellationToken)
                     .ConfigureAwait(false);
@@ -77,7 +77,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                 await ConsumerStates
                     .AddAsync(new ConsumerStateItem
                     {
-                        Name = consumerName.ToString(),
+                        Name = consumerName,
                         ErrorMessage = errorMessage
                     }, cancellationToken)
                     .ConfigureAwait(false);
