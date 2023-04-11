@@ -1,10 +1,13 @@
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
 
     public abstract class ConsumerDbContext<TContext> : DbContext where TContext : DbContext
     {
         public DbSet<ProcessedMessage> ProcessedMessages => Set<ProcessedMessage>();
+        public DbSet<ConsumerStateItem> ConsumerStates => Set<ConsumerStateItem>();
 
         protected ConsumerDbContext()
         { }
@@ -39,6 +42,50 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
             modelBuilder
                 .Entity<ProcessedMessage>()
                 .Property(p => p.DateProcessed);
+
+            modelBuilder.ApplyConfiguration(new ConsumerStatesConfiguration());
+        }
+
+        public async Task UpdateConsumerState(ConsumerName consumerName, Offset offset, CancellationToken cancellationToken)
+        {
+            var state = await ConsumerStates
+                .FindAsync(new object[] { consumerName.ToString() }, cancellationToken);
+
+            if (state is null)
+            {
+                await ConsumerStates
+                    .AddAsync(new ConsumerStateItem
+                    {
+                        Name = consumerName.ToString(),
+                        Offset = offset
+                    }, cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            else
+            {
+                state.Offset = offset;
+            }
+        }
+
+        public async Task Error(ConsumerName consumerName, string errorMessage, CancellationToken cancellationToken)
+        {
+            var state = await ConsumerStates
+                .FindAsync(new object[] { consumerName.ToString() }, cancellationToken);
+
+            if (state is null)
+            {
+                await ConsumerStates
+                    .AddAsync(new ConsumerStateItem
+                    {
+                        Name = consumerName.ToString(),
+                        ErrorMessage = errorMessage
+                    }, cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            else
+            {
+                state.ErrorMessage = errorMessage;
+            }
         }
     }
 }

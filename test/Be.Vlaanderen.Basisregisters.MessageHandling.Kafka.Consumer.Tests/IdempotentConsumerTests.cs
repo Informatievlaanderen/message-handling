@@ -51,18 +51,21 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
             };
 
             var consumerMock = new Mock<IConsumer<string, string>>();
+            var offset = _fixture.Create<Offset>();
             consumerMock
                 .Setup(x => x.Consume(It.IsAny<TimeSpan>()))
-                .Returns(new ConsumeResult<string, string> { Message = testMessage});
+                .Returns(new ConsumeResult<string, string> { Message = testMessage, Offset = offset });
 
+            var consumerName = _fixture.Create<string>();
             var consumer = new IdempotentConsumer<FakeDbConsumerContext>(
+                new ConsumerName(consumerName),
                 _consumerOptions,
                 consumerMock.Object,
                 _dbFactoryMock.Object,
                 new LoggerFactory());
 
             var messages = new List<FakeMessage>();
-            
+
             var task = Task.Run(async () =>
             {
                 await consumer.ConsumeContinuously(
@@ -85,6 +88,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
             var context = await _dbFactoryMock.Object.CreateDbContextAsync(CancellationToken.None);
             var processed = await context.ProcessedMessages.FindAsync(testMessage.Value.ToSha512());
             processed.Should().NotBeNull();
+
+            var state = await context.ConsumerStates.FindAsync(new object?[] { consumerName }, CancellationToken.None);
+            state.Should().NotBeNull();
+            state!.Offset.Should().Be(offset);
         }
 
         [Fact]
@@ -101,11 +108,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
             };
 
             var consumerMock = new Mock<IConsumer<string, string>>();
+            var offset = _fixture.Create<Offset>();
             consumerMock
                 .Setup(x => x.Consume(It.IsAny<TimeSpan>()))
-                .Returns(new ConsumeResult<string, string> { Message = testMessage });
+                .Returns(new ConsumeResult<string, string> { Message = testMessage, Offset = offset });
 
+            var consumerName = _fixture.Create<string>();
             var consumer = new IdempotentConsumer<FakeDbConsumerContext>(
+                new ConsumerName(consumerName),
                 _consumerOptions,
                 consumerMock.Object,
                 _dbFactoryMock.Object,
@@ -135,6 +145,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
             var context = await _dbFactoryMock.Object.CreateDbContextAsync(CancellationToken.None);
             var processed = await context.ProcessedMessages.FindAsync(idempotenceKey);
             processed.Should().NotBeNull();
+
+            var state = await context.ConsumerStates.FindAsync(new object?[] { consumerName }, CancellationToken.None);
+            state.Should().NotBeNull();
+            state!.Offset.Should().Be(offset);
         }
     }
 }
