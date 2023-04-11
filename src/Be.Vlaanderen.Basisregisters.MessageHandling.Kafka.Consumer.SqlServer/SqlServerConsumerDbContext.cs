@@ -41,6 +41,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer
             modelBuilder
                 .Entity<ProcessedMessage>()
                 .Property(p => p.DateProcessed);
+
+            modelBuilder.ApplyConfiguration(new ConsumerStatesConfiguration(ProcessedMessagesSchema));
         }
     }
 }

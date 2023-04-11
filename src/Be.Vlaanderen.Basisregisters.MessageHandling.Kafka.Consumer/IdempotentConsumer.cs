@@ -9,6 +9,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
+    using Offset = Kafka.Offset;
 
     public sealed class IdempotentConsumer<TConsumerContext> : IIdempotentConsumer<TConsumerContext>, IDisposable
         where TConsumerContext : ConsumerDbContext<TConsumerContext>
@@ -18,14 +19,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
         private readonly JsonSerializer _serializer;
         private readonly IConsumer<string, string> _consumer;
 
+        public ConsumerName ConsumerName { get; }
         public ConsumerOptions ConsumerOptions { get; }
 
         internal IdempotentConsumer(
+            ConsumerName consumerName,
             ConsumerOptions consumerOptions,
             IConsumer<string, string> consumer,
             IDbContextFactory<TConsumerContext> dbContextFactory,
             ILoggerFactory loggerFactory)
         {
+            ConsumerName = consumerName;
             ConsumerOptions = consumerOptions;
             _consumer = consumer;
             _dbContextFactory = dbContextFactory;
@@ -34,10 +38,12 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
         }
 
         public IdempotentConsumer(
+            ConsumerName consumerName,
             ConsumerOptions consumerOptions,
             IDbContextFactory<TConsumerContext> dbContextFactory,
             ILoggerFactory loggerFactory)
             : this(
+                consumerName,
                 consumerOptions,
                 consumerOptions.CreateConsumerConfig().BuildConsumer(consumerOptions),
                 dbContextFactory,
@@ -65,7 +71,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                     var messageData = kafkaJsonMessage.Map()
                                       ?? throw new ArgumentException("Kafka message data is null.");
 
-                    var idempotenceKey = consumeResult.Message.Headers.TryGetLastBytes(MessageHeader.IdempotenceKey, out var idempotenceHeaderAsBytes)
+                    var idempotenceKey = consumeResult.Message.Headers.TryGetLastBytes(MessageHeader.IdempotenceKey,
+                        out var idempotenceHeaderAsBytes)
                         ? Encoding.UTF8.GetString(idempotenceHeaderAsBytes)
                         : consumeResult.Message.Value.ToSha512();
 
@@ -92,6 +99,12 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                             .AddAsync(processedMessage, cancellationToken)
                             .ConfigureAwait(false);
 
+                        await dbContext.UpdateConsumerState(
+                                ConsumerName,
+                                new Offset(consumeResult.Offset),
+                                cancellationToken)
+                            .ConfigureAwait(false);
+
                         await dbContext.SaveChangesAsync(cancellationToken)
                             .ConfigureAwait(false);
 
@@ -99,9 +112,10 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
 
                         _consumer.Commit(consumeResult);
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         dbContext.ProcessedMessages.Remove(processedMessage);
+                        await dbContext.Error(ConsumerName, ex.Message, CancellationToken.None);
                         await dbContext.SaveChangesAsync(CancellationToken.None);
                         throw;
                     }
