@@ -39,6 +39,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
             modelBuilder
                 .Entity<ProcessedMessage>()
                 .Property(p => p.DateProcessed);
+
+            modelBuilder.Entity<ProcessedMessage>()
+                .HasIndex(p => p.DateProcessed);
         }
     }
 }
