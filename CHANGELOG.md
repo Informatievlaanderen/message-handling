@@ -1,3 +1,10 @@
+## [4.8.3](https://github.com/informatievlaanderen/message-handling/compare/v4.8.2...v4.8.3) (2023-06-04)
+
+
+### Bug Fixes
+
+* add index on date processed ([a2a5c3c](https://github.com/informatievlaanderen/message-handling/commit/a2a5c3c58be17e80539e401e9dbab1cf8ec35497))
+
 ## [4.8.2](https://github.com/informatievlaanderen/message-handling/compare/v4.8.1...v4.8.2) (2023-03-30)
 
 
