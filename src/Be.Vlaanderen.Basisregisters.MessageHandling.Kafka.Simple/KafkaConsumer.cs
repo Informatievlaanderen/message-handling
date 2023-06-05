@@ -28,7 +28,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
                 .SetValueDeserializer(Deserializers.Utf8);
             if (options.Offset.HasValue)
             {
-                consumerBuilder.SetPartitionsAssignedHandler((cons, topicPartitions) =>
+                consumerBuilder.SetPartitionsAssignedHandler((_, topicPartitions) =>
                 {
                     var partitionOffset = topicPartitions.Select(x => new TopicPartitionOffset(x.Topic, x.Partition, options.Offset.Value));
                     return partitionOffset;
