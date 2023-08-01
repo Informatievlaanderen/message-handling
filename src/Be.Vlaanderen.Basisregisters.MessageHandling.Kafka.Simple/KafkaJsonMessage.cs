@@ -13,6 +13,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
         public string Type { get; set; }
         public string Data { get; set; }
 
+        public KafkaJsonMessage()
+            : this(string.Empty, string.Empty)
+        {
+        }
+
         public KafkaJsonMessage(string type, string data)
         {
             Type = type;
