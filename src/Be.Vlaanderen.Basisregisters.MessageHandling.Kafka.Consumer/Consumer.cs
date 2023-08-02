@@ -49,7 +49,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                         continue;
                     }
 
-                    var messageData = ConsumerOptions.MessageSerializer.Deserialize(consumeResult.Message.Key, consumeResult.Message.Value);
+                    var messageData = ConsumerOptions.MessageSerializer.Deserialize(consumeResult.Message.Value, MessageContext.From(consumeResult));
 
                     await messageHandler(messageData);
 
