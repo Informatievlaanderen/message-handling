@@ -6,13 +6,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
     using Confluent.Kafka;
     using Extensions;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
 
     public sealed class Consumer : IConsumer, IDisposable
     {
         private readonly ILogger _logger;
         private readonly IConsumer<string, string> _consumer;
-        private readonly JsonSerializer _serializer;
 
         public ConsumerOptions ConsumerOptions { get; }
 
@@ -23,7 +21,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
         {
             ConsumerOptions = consumerOptions;
             _consumer = consumer;
-            _serializer = JsonSerializer.CreateDefault(ConsumerOptions.JsonSerializerSettings);
             _logger = loggerFactory.CreateLogger<Consumer>();
         }
 
@@ -52,10 +49,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                         continue;
                     }
 
-                    var kafkaJsonMessage = _serializer.Deserialize<JsonMessage>(consumeResult.Message.Value)
-                                           ?? throw new ArgumentException("Kafka json message is null.");
-                    var messageData = kafkaJsonMessage.Map()
-                                      ?? throw new ArgumentException("Kafka message data is null.");
+                    var messageData = ConsumerOptions.MessageSerializer.Deserialize(consumeResult.Message.Value);
 
                     await messageHandler(messageData);
 

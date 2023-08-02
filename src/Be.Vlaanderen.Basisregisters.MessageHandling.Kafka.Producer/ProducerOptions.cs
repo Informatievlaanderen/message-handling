@@ -13,6 +13,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
         public BootstrapServers BootstrapServers { get; }
         public SaslAuthentication? SaslAuthentication { get; private set; }
         public JsonSerializerSettings JsonSerializerSettings { get; }
+        public IMessageSerializer<string> MessageSerializer { get; }
 
         public bool EnableIdempotence { get; private set; } = false;
 
@@ -20,12 +21,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
             BootstrapServers bootstrapServers,
             Topic topic,
             bool useSinglePartition = true,
-            JsonSerializerSettings? jsonSerializerSettings = null)
+            JsonSerializerSettings? jsonSerializerSettings = null,
+            IMessageSerializer<string>? messageSerializer = null)
         {
             BootstrapServers = bootstrapServers;
             Topic = topic;
             UseSinglePartition = useSinglePartition;
             JsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
+            MessageSerializer = messageSerializer ?? new JsonMessageSerializer(JsonSerializerSettings);
         }
 
         public ProducerOptions ConfigureSaslAuthentication(SaslAuthentication saslAuthentication)
