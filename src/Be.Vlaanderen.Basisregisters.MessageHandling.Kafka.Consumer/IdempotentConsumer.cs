@@ -15,7 +15,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
     {
         private readonly IDbContextFactory<TConsumerContext> _dbContextFactory;
         private readonly ILogger _logger;
-        private readonly JsonSerializer _serializer;
         private readonly IConsumer<string, string> _consumer;
 
         public ConsumerOptions ConsumerOptions { get; }
@@ -29,7 +28,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
             ConsumerOptions = consumerOptions;
             _consumer = consumer;
             _dbContextFactory = dbContextFactory;
-            _serializer = JsonSerializer.CreateDefault(ConsumerOptions.JsonSerializerSettings);
             _logger = loggerFactory.CreateLogger<Consumer>();
         }
 
@@ -59,11 +57,8 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                         await Task.Delay(ConsumerOptions.NoMessageFoundDelay, cancellationToken);
                         continue;
                     }
-
-                    var kafkaJsonMessage = _serializer.Deserialize<JsonMessage>(consumeResult.Message.Value)
-                                           ?? throw new ArgumentException("Kafka json message is null.");
-                    var messageData = kafkaJsonMessage.Map()
-                                      ?? throw new ArgumentException("Kafka message data is null.");
+                    
+                    var messageData = ConsumerOptions.MessageSerializer.Deserialize(consumeResult.Message.Value);
 
                     var idempotenceKey = consumeResult.Message.Headers.TryGetLastBytes(MessageHeader.IdempotenceKey, out var idempotenceHeaderAsBytes)
                         ? Encoding.UTF8.GetString(idempotenceHeaderAsBytes)

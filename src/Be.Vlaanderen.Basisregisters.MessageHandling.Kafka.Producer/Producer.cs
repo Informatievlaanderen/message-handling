@@ -5,7 +5,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
     using System.Threading;
     using System.Threading.Tasks;
     using Confluent.Kafka;
-    using Newtonsoft.Json;
     using Offset = Offset;
 
     public sealed class Producer : IProducer, IDisposable
@@ -63,10 +62,9 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
         {
             try
             {
-                var serializer = JsonSerializer.CreateDefault(_producerOptions.JsonSerializerSettings);
-                var kafkaJsonMessage = JsonMessage.Create(message, serializer);
-
-                var offset = await ProduceMessage(key, serializer.Serialize(kafkaJsonMessage), headers, cancellationToken);
+                var serializedMessage = _producerOptions.MessageSerializer.Serialize(message);
+                
+                var offset = await ProduceMessage(key, serializedMessage, headers, cancellationToken);
 
                 return Result.Success(offset);
             }

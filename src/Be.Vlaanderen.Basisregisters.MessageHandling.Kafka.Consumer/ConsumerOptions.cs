@@ -1,7 +1,6 @@
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
 {
     using System;
-    using System.Net;
     using Confluent.Kafka;
     using Extensions;
     using Newtonsoft.Json;
@@ -13,6 +12,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
         public BootstrapServers BootstrapServers { get; }
         public SaslAuthentication? SaslAuthentication { get; private set; }
         public JsonSerializerSettings JsonSerializerSettings { get; }
+        public IMessageSerializer<string> MessageSerializer { get; }
         public ConsumerGroupId ConsumerGroupId { get; }
 
         /// <summary>
@@ -26,12 +26,14 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
             BootstrapServers bootstrapServers,
             Topic topic,
             ConsumerGroupId consumerGroupId,
-            JsonSerializerSettings? jsonSerializerSettings = null)
+            JsonSerializerSettings? jsonSerializerSettings = null,
+            IMessageSerializer<string>? messageSerializer = null)
         {
             BootstrapServers = bootstrapServers;
             Topic = topic;
             ConsumerGroupId = consumerGroupId;
             JsonSerializerSettings = jsonSerializerSettings ?? new JsonSerializerSettings();
+            MessageSerializer = messageSerializer ?? new JsonMessageSerializer(JsonSerializerSettings);
         }
 
         public ConsumerOptions ConfigureOffset(Offset offset)
