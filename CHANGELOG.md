@@ -1,3 +1,11 @@
+# [4.9.0](https://github.com/informatievlaanderen/message-handling/compare/v4.8.3...v4.9.0) (2023-08-02)
+
+
+### Features
+
+* add IMessageSerializer ([9ff7e85](https://github.com/informatievlaanderen/message-handling/commit/9ff7e85a7cd4e3f687713ef0e1ab0a220df786c4))
+* add IMessageSerializer ([190838c](https://github.com/informatievlaanderen/message-handling/commit/190838caad6572b0eb082f46ef6dceeefca61301))
+
 ## [4.8.3](https://github.com/informatievlaanderen/message-handling/compare/v4.8.2...v4.8.3) (2023-06-04)
 
 
