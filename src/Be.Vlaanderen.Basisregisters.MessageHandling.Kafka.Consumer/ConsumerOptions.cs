@@ -12,7 +12,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
         public BootstrapServers BootstrapServers { get; }
         public SaslAuthentication? SaslAuthentication { get; private set; }
         public JsonSerializerSettings JsonSerializerSettings { get; }
-        public IMessageSerializer<string> MessageSerializer { get; }
+        public IMessageSerializer<string, string> MessageSerializer { get; }
         public ConsumerGroupId ConsumerGroupId { get; }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
             Topic topic,
             ConsumerGroupId consumerGroupId,
             JsonSerializerSettings? jsonSerializerSettings = null,
-            IMessageSerializer<string>? messageSerializer = null)
+            IMessageSerializer<string, string>? messageSerializer = null)
         {
             BootstrapServers = bootstrapServers;
             Topic = topic;
