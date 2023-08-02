@@ -12,7 +12,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka
             _serializer = JsonSerializer.CreateDefault(jsonSerializerSettings);
         }
 
-        public object Deserialize(string key, string value)
+        public object Deserialize(string value, MessageContext<string> context)
         {
             var kafkaJsonMessage = _serializer.Deserialize<JsonMessage>(value)
                                    ?? throw new ArgumentException("Kafka json message is null.");
