@@ -1,8 +1,8 @@
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka
 {
-    public interface IMessageSerializer<TKey, TValue>
+    public interface IMessageSerializer<TValue>
     {
-        object Deserialize(TValue value, MessageContext<TKey> context);
+        object Deserialize(TValue value, MessageContext context);
         TValue Serialize(object message);
     }
 }

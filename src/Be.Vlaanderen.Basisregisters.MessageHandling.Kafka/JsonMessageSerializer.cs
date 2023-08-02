@@ -3,7 +3,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka
     using System;
     using Newtonsoft.Json;
 
-    public class JsonMessageSerializer : IMessageSerializer<string, string>
+    public class JsonMessageSerializer : IMessageSerializer<string>
     {
         private readonly JsonSerializer _serializer;
 
@@ -12,7 +12,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka
             _serializer = JsonSerializer.CreateDefault(jsonSerializerSettings);
         }
 
-        public object Deserialize(string value, MessageContext<string> context)
+        public object Deserialize(string value, MessageContext context)
         {
             var kafkaJsonMessage = _serializer.Deserialize<JsonMessage>(value)
                                    ?? throw new ArgumentException("Kafka json message is null.");

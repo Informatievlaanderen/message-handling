@@ -2,20 +2,17 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka
 {
     using Confluent.Kafka;
 
-    public sealed class MessageContext<TKey>
+    public sealed class MessageContext
     {
-        public TKey Key { get; init; }
-        public long Offset { get; init; }
-    }
+        public MessageKey Key { get; init; }
+        public Offset Offset { get; init; }
 
-    public static class MessageContext
-    {
-        public static MessageContext<TKey> From<TKey, TValue>(ConsumeResult<TKey, TValue> consumeResult)
+        public static MessageContext From(ConsumeResult<string, string> consumeResult)
         {
-            return new MessageContext<TKey>
+            return new MessageContext
             {
-                Key = consumeResult.Message.Key,
-                Offset = consumeResult.Offset.Value
+                Key = new MessageKey(consumeResult.Message.Key),
+                Offset = new Offset(consumeResult.Offset.Value)
             };
         }
     }
