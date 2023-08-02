@@ -1,21 +1,22 @@
-using Confluent.Kafka;
-
-namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka;
-
-public sealed class MessageContext<TKey>
+namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka
 {
-    public TKey Key { get; init; }
-    public long Offset { get; init; }
-}
+    using Confluent.Kafka;
 
-public static class MessageContext
-{
-    public static MessageContext<TKey> From<TKey, TValue>(ConsumeResult<TKey, TValue> consumeResult)
+    public sealed class MessageContext<TKey>
     {
-        return new MessageContext<TKey>
+        public TKey Key { get; init; }
+        public long Offset { get; init; }
+    }
+
+    public static class MessageContext
+    {
+        public static MessageContext<TKey> From<TKey, TValue>(ConsumeResult<TKey, TValue> consumeResult)
         {
-            Key = consumeResult.Message.Key,
-            Offset = consumeResult.Offset.Value
-        };
+            return new MessageContext<TKey>
+            {
+                Key = consumeResult.Message.Key,
+                Offset = consumeResult.Offset.Value
+            };
+        }
     }
 }
