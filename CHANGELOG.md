@@ -1,3 +1,11 @@
+## [4.9.1](https://github.com/informatievlaanderen/message-handling/compare/v4.9.0...v4.9.1) (2023-08-02)
+
+
+### Bug Fixes
+
+* add Key to IMessageSerializer.Deserialize ([42b6fce](https://github.com/informatievlaanderen/message-handling/commit/42b6fcea97e6aac7c21cba66a5f216945d08ffb4))
+* add Key to IMessageSerializer.Deserialize ([67d52bf](https://github.com/informatievlaanderen/message-handling/commit/67d52bf9c097511d42be7325312f85bc779e72e9))
+
 # [4.9.0](https://github.com/informatievlaanderen/message-handling/compare/v4.8.3...v4.9.0) (2023-08-02)
 
 
