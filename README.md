@@ -1,4 +1,4 @@
-# message-handling [![Build Status](https://github.com/InformatieVlaanderen/message-handling/workflows/CI/badge.svg)](https://github.com/Informatievlaanderen/message-handling/actions)
+# message-handling [![Build Status](https://github.com/InformatieVlaanderen/message-handling/workflows/Build/badge.svg)](https://github.com/Informatievlaanderen/message-handling/actions)
 
 Lightweight message handling infrastructure for Digitaal Vlaanderen
 

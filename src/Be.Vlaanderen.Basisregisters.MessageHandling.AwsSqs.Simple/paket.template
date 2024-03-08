@@ -15,11 +15,11 @@ licenseUrl https://opensource.org/licenses/MIT
 description Message handling with AWS SQS.
 
 dependencies
-  framework: net6.0
+  framework: net8.0
     Microsoft.Extensions.Logging >= LOCKEDVERSION
     AWSSDK.Core >= LOCKEDVERSION
     AWSSDK.SQS >= LOCKEDVERSION
 
 files
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.dll => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.pdb => lib\net6.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.dll => lib\net8.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.pdb => lib\net8.0
