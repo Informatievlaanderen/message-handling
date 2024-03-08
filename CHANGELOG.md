@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/informatievlaanderen/message-handling/compare/v5.0.0...v5.0.1) (2024-03-08)
+
+
+### Bug Fixes
+
+* **bump:** style to trigger build ([11ede59](https://github.com/informatievlaanderen/message-handling/commit/11ede597d027143d1dbd0a4c1d4459e27d5fa13b))
+
 # [5.0.0](https://github.com/informatievlaanderen/message-handling/compare/v4.9.1...v5.0.0) (2024-03-08)
 
 
