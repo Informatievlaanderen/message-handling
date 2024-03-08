@@ -262,19 +262,19 @@ jobs:
     - name: Download NuGet Kafka Consumer package
       uses: actions/download-artifact@v4
       with:
-        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Consumer-${{ needs.release.outputs.version }}
+        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet Kafka Consumer SqlServer package
       uses: actions/download-artifact@v4
       with:
-        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Consumer.SqlServer-${{ needs.release.outputs.version }}
+        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet Kafka Producer package
       uses: actions/download-artifact@v4
       with:
-        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Producer-${{ needs.release.outputs.version }}
+        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet Kafka Simple package
