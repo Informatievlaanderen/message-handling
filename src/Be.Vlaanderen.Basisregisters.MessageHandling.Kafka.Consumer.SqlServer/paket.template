@@ -15,16 +15,16 @@ licenseUrl https://opensource.org/licenses/MIT
 description Message handling with Kafka.
 
 dependencies
-  framework: net6.0
+  framework: net8.0
     Microsoft.Extensions.Logging >= LOCKEDVERSION
     Microsoft.EntityFrameworkCore.SqlServer >= LOCKEDVERSION
     Newtonsoft.Json >= LOCKEDVERSION
     Confluent.Kafka >= LOCKEDVERSION
 
 files
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.dll => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.pdb => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.dll => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.pdb => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer.dll => lib\net6.0
-  bin\Release\net6.0\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer.pdb => lib\net6.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.dll => lib\net8.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.pdb => lib\net8.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.dll => lib\net8.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.pdb => lib\net8.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer.dll => lib\net8.0
+  Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer.pdb => lib\net8.0

@@ -3,7 +3,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
     using System;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
 
     public class FakeDbConsumerContext : ConsumerDbContext<FakeDbConsumerContext>
     {

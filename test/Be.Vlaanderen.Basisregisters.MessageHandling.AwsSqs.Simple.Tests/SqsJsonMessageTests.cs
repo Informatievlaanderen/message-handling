@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Xunit;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
 {
+    using Newtonsoft.Json;
+    using Xunit;
+
     public class SqsJsonMessageTests
     {
         [Fact]

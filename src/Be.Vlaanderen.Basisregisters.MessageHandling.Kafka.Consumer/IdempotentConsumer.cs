@@ -8,7 +8,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
     using Extensions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
 
     public sealed class IdempotentConsumer<TConsumerContext> : IIdempotentConsumer<TConsumerContext>, IDisposable
         where TConsumerContext : ConsumerDbContext<TConsumerContext>
@@ -57,7 +56,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
                         await Task.Delay(ConsumerOptions.NoMessageFoundDelay, cancellationToken);
                         continue;
                     }
-                    
+
                     var messageData = ConsumerOptions.MessageSerializer.Deserialize(consumeResult.Message.Value, MessageContext.From(consumeResult));
 
                     var idempotenceKey = consumeResult.Message.Headers.TryGetLastBytes(MessageHeader.IdempotenceKey, out var idempotenceHeaderAsBytes)

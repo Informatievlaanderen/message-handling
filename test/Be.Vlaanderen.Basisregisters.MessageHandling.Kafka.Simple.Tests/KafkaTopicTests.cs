@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
-using Xunit;
-
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.Tests
 {
+    using System.Threading.Tasks;
+    using Xunit;
+
     public class KafkaTopicTests
     {
         [Theory(Skip = "Needs theory data")]
