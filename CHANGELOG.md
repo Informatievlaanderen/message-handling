@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/informatievlaanderen/message-handling/compare/v4.9.1...v5.0.0) (2024-03-08)
+
+
+### Features
+
+* move to dotnet 8.0.2 ([fa323ea](https://github.com/informatievlaanderen/message-handling/commit/fa323ea26a9936fb783f4f970a6911f60d1d5806))
+
+
+### BREAKING CHANGES
+
+* move to dotnet 8.0.2
+
 ## [4.9.1](https://github.com/informatievlaanderen/message-handling/compare/v4.9.0...v4.9.1) (2023-08-02)
 
 
