@@ -63,6 +63,37 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
             }
         }
 
+        public async Task ConsumeContinuously(Func<object, MessageContext, Task> messageHandler, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                _consumer.Subscribe(ConsumerOptions.Topic);
+                _logger.LogInformation($"Subscribed to {ConsumerOptions.Topic}");
+
+                while (!cancellationToken.IsCancellationRequested)
+                {
+                    var consumeResult = _consumer.Consume(TimeSpan.FromSeconds(3));
+                    if (consumeResult == null) //if no message is found, returns null
+                    {
+                        await Task.Delay(ConsumerOptions.NoMessageFoundDelay, cancellationToken);
+                        continue;
+                    }
+
+                    var messageContext = MessageContext.From(consumeResult);
+                    var messageData = ConsumerOptions.MessageSerializer.Deserialize(consumeResult.Message.Value, messageContext);
+
+                    await messageHandler(messageData, messageContext);
+
+                    _consumer.Commit(consumeResult);
+                }
+            }
+            finally
+            {
+                _logger.LogInformation("Unsubscribing...");
+                _consumer.Unsubscribe();
+            }
+        }
+
         private void Dispose(bool disposing)
         {
             if (disposing)
