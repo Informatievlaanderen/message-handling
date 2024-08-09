@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/informatievlaanderen/message-handling/compare/v5.0.1...v5.1.0) (2024-08-09)
+
+
+### Features
+
+* add IConsumer.ConsumeContinuously overload ([f1ac10c](https://github.com/informatievlaanderen/message-handling/commit/f1ac10c2f289b08cd1b34795f5f077e267f76bf8))
+
 ## [5.0.1](https://github.com/informatievlaanderen/message-handling/compare/v5.0.0...v5.0.1) (2024-03-08)
 
 
