@@ -1,3 +1,10 @@
+# [5.2.0](https://github.com/informatievlaanderen/message-handling/compare/v5.1.0...v5.2.0) (2024-12-04)
+
+
+### Features
+
+* add OffsetOverride ([d1a7a37](https://github.com/informatievlaanderen/message-handling/commit/d1a7a37738ea1698db16f9e8676824b74e23d90a))
+
 # [5.1.0](https://github.com/informatievlaanderen/message-handling/compare/v5.0.1...v5.1.0) (2024-08-09)
 
 
