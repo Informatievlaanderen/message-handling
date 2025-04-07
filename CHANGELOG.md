@@ -1,3 +1,15 @@
+# [6.0.0](https://github.com/informatievlaanderen/message-handling/compare/v5.2.0...v6.0.0) (2025-04-07)
+
+
+### Code Refactoring
+
+* use renovate and nuget + update pipeline ([6e5444d](https://github.com/informatievlaanderen/message-handling/commit/6e5444d722adebb753031079ea56e12fe841904e))
+
+
+### BREAKING CHANGES
+
+* update to dotnet 9
+
 # [5.2.0](https://github.com/informatievlaanderen/message-handling/compare/v5.1.0...v5.2.0) (2024-12-04)
 
 
