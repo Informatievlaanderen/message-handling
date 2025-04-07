@@ -22,7 +22,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20.x'
+        node-version: '22.x'
 
     - name: Node version
       shell: bash
@@ -50,13 +50,12 @@ jobs:
       run: |
         [ ! -f semver ] && echo none > semver
         echo $(cat semver)
-        echo ::set-output name=version::$(cat semver)
-        echo RELEASE_VERSION=$(cat semver) >> $GITHUB_ENV
+        echo "version=$(cat semver)" >> "$GITHUB_OUTPUT"
       shell: bash
 
   pack-aws-sqs-simple:
     name: Pack AwsSqs Simple
-    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack.yml@main
+    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack-v2.yml@main
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
@@ -64,12 +63,13 @@ jobs:
       test-project: Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
       build-project: Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
       semver: ${{ needs.set-release-version.outputs.version }}
-      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_9 }}
+      prerestore-script: ./pre-restore.sh
     secrets: inherit
 
   pack-kafka-consumer:
     name: Pack Kafka Consumer
-    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack.yml@main
+    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack-v2.yml@main
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
@@ -77,24 +77,26 @@ jobs:
       test-project: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
       build-project: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer
       semver: ${{ needs.set-release-version.outputs.version }}
-      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_9 }}
+      prerestore-script: ./pre-restore.sh
     secrets: inherit
 
   pack-kafka-consumer-sqlserver:
     name: Pack Kafka Consumer SqlServer
-    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack.yml@main
+    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack-v2.yml@main
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
       pack-file: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer
       build-project: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer
       semver: ${{ needs.set-release-version.outputs.version }}
-      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_9 }}
+      prerestore-script: ./pre-restore.sh
     secrets: inherit
 
   pack-producer:
     name: Pack Kafka Producer
-    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack.yml@main
+    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack-v2.yml@main
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
@@ -102,27 +104,15 @@ jobs:
       test-project: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.Tests
       build-project: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer
       semver: ${{ needs.set-release-version.outputs.version }}
-      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
-    secrets: inherit
-
-  pack-kafka-simple:
-    name: Pack Kafka Simple
-    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack.yml@main
-    needs: [ set-release-version ]
-    if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
-    with:
-      pack-file: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
-      test-project: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.Tests
-      build-project: Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple
-      semver: ${{ needs.set-release-version.outputs.version }}
-      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_9 }}
+      prerestore-script: ./pre-restore.sh
     secrets: inherit
 
   release:
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     name: Semantic Release
     runs-on: ubuntu-latest
-    needs: [ set-release-version, pack-aws-sqs-simple, pack-kafka-consumer, pack-kafka-consumer-sqlserver, pack-producer, pack-kafka-simple ]
+    needs: [ set-release-version, pack-aws-sqs-simple, pack-kafka-consumer, pack-kafka-consumer-sqlserver, pack-producer ]
     outputs:
       version: ${{ steps.set-version.outputs.version }}
     steps:
@@ -148,7 +138,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20.x'
+        node-version: '22.x'
 
     - name: Setup Python
       uses: actions/setup-python@v5
@@ -205,13 +195,6 @@ jobs:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
-    - name: Download NuGet Kafka Simple
-      uses: actions/download-artifact@v4
-      continue-on-error: false
-      with:
-        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple-${{ needs.set-release-version.outputs.version }}
-        path: dist/nuget/
-
     - name: Run Semantic Release
       shell: bash
       run: npx semantic-release
@@ -230,8 +213,7 @@ jobs:
       run: |
         [ ! -f semver ] && echo none > semver
         echo $(cat semver)
-        echo ::set-output name=version::$(cat semver)
-        echo RELEASE_VERSION=$(cat semver) >> $GITHUB_ENV
+        echo "version=$(cat semver)" >> "$GITHUB_OUTPUT"
       shell: bash
 
   publish_to_nuget:
@@ -247,7 +229,9 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
+        dotnet-version: ${{ vars.VBR_DOTNET_VERSION_9 }}
+        cache: true
+        cache-dependency-path: "**/packages.lock.json"
 
     - name: .NET version
       shell: bash
@@ -277,12 +261,6 @@ jobs:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer-${{ needs.release.outputs.version }}
         path: ~/
 
-    - name: Download NuGet Kafka Simple package
-      uses: actions/download-artifact@v4
-      with:
-        name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple-${{ needs.release.outputs.version }}
-        path: ~/
-
     - name: Publish packages to NuGet
       shell: bash
       run: |
@@ -290,7 +268,6 @@ jobs:
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
-        dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
       env:
         SEMVER: ${{  needs.release.outputs.version }}
         WORKSPACE: ${{ github.workspace }}
@@ -308,16 +285,6 @@ jobs:
       - name: Parse repository name
         run: echo REPOSITORY_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//") >> $GITHUB_ENV
         shell: bash
-
-      - name: Cache Paket
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-paket
-        with:
-          path: packages
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('paket.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Cache Python
         uses: actions/cache@v4
@@ -338,9 +305,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests markdown argparse
 
+      - name: Restore build-pipeline
+        shell: bash
+        run: ./pre-restore.sh
+
       - name: Publish to Confluence
         shell: bash
-        run: ./packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-confluence.sh
+        run: bash ./.build/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-confluence.sh
         env:
           CONFLUENCE_TITLE: ${{ env.REPOSITORY_NAME }}
           CONFLUENCE_USERNAME: ${{ secrets.VBR_CONFLUENCE_USER }}

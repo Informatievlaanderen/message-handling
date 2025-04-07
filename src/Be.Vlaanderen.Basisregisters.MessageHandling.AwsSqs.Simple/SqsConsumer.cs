@@ -22,7 +22,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 
             const string messageGroupId = "MessageGroupId";
             var sqsJsonMessage = new SqsJsonMessage();
-            var request = new ReceiveMessageRequest(queueUrl) { AttributeNames = new List<string> { messageGroupId } };
+            var request = new ReceiveMessageRequest(queueUrl) { MessageSystemAttributeNames = [messageGroupId] };
             try
             {
                 while (!cancellationToken.IsCancellationRequested)

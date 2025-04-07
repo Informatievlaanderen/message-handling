@@ -1,7 +1,0 @@
-Confluent.Kafka
-Microsoft.Extensions.Configuration.Json
-Microsoft.Extensions.DependencyInjection
-Newtonsoft.Json
-
-SourceLink.Embed.AllSourceFiles
-SourceLink.Copy.PdbFiles

@@ -22,7 +22,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.Tests
             var result = kafkaProducerOptions.CreateProduceConfig();
 
             result.BootstrapServers.Should().Be(kafkaProducerOptions.BootstrapServers);
-            result.SaslUsername.Should().Be(kafkaProducerOptions.SaslAuthentication.Value.Username);
+            result.SaslUsername.Should().Be(kafkaProducerOptions.SaslAuthentication!.Value.Username);
             result.SaslPassword.Should().Be(kafkaProducerOptions.SaslAuthentication.Value.Password);
             result.SaslMechanism.Should().Be(SaslMechanism.Plain);
             result.SecurityProtocol.Should().Be(SecurityProtocol.SaslSsl);

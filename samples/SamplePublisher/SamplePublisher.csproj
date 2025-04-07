@@ -2,7 +2,7 @@
   <PropertyGroup>
     <LangVersion>8</LangVersion>
   </PropertyGroup>
-  <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.App.props" />
+  <Import Project="..\..\.build\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.App.props" />
   <ItemGroup>
     <ProjectReference Include="..\..\src\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq\Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.csproj" />
   </ItemGroup>

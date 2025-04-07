@@ -56,7 +56,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
                 {
                     var fakeMessage = message as FakeMessage;
                     fakeMessage.Should().NotBeNull();
-                    messages.Add(fakeMessage);
+                    messages.Add(fakeMessage!, cts.Token);
 
                     cts.Cancel();
 
@@ -99,7 +99,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
                 {
                     var fakeMessage = message as FakeMessage;
                     fakeMessage.Should().NotBeNull();
-                    messages.Add(fakeMessage);
+                    messages.Add(fakeMessage!, cts.Token);
 
                     messageContext.Offset.Should().Be(new Offset(expectedOffset));
                     messageContext.Key.Should().Be(new MessageKey(testMessage.Key));
