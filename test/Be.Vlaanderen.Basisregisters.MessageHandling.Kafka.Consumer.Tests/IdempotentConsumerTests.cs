@@ -62,7 +62,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
                 new LoggerFactory());
 
             var messages = new List<FakeMessage>();
-            
+
             var task = Task.Run(async () =>
             {
                 await consumer.ConsumeContinuously(
@@ -70,7 +70,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
                     {
                         var fakeMessage = message as FakeMessage;
                         fakeMessage.Should().NotBeNull();
-                        messages.Add(fakeMessage);
+                        messages.Add(fakeMessage!);
                         return Task.CompletedTask;
                     },
                     CancellationToken.None);
@@ -120,7 +120,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.Tests
                     {
                         var fakeMessage = message as FakeMessage;
                         fakeMessage.Should().NotBeNull();
-                        messages.Add(fakeMessage);
+                        messages.Add(fakeMessage!);
                         return Task.CompletedTask;
                     },
                     CancellationToken.None);
