@@ -1,7 +1,0 @@
-AutoFixture.Xunit2
-FluentAssertions
-Moq
-Microsoft.NET.Test.Sdk
-xunit
-xunit.runner.visualstudio
-xunit.categories

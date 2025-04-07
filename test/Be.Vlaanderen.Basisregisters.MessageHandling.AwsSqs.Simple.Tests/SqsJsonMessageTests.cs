@@ -23,7 +23,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple.Tests
 
         private class DummyMessage
         {
-            public string Name { get; set; }
+            public string? Name { get; set; }
         }
     }
 }

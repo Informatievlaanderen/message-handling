@@ -12,6 +12,6 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.Kafka
         public Offset? Offset { get; init; }
 
         public static Result Success(Offset offset) => new Result { IsSuccess = true, Offset = offset };
-        public new static Result Failure(string error, string errorReason) => new Result { IsSuccess = false, Error = error, ErrorReason = errorReason };
+        public static Result Failure(string error, string errorReason) => new Result { IsSuccess = false, Error = error, ErrorReason = errorReason };
     }
 }
