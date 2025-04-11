@@ -11,7 +11,7 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" />
+    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
