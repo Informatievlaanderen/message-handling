@@ -32,7 +32,17 @@
     <PackageProjectUrl>https://github.com/Informatievlaanderen/message-handling</PackageProjectUrl>
     <PackageIcon>logo.png</PackageIcon>
     <Description>Message handling with Kafka for producers.</Description>
+    <!-- Include referenced projects' outputs in this package -->
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
+
+  <!-- Target to collect reference outputs for packaging -->
+  <Target Name="CopyProjectReferencesToPackage">
+    <ItemGroup>
+      <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.dll" />
+      <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.pdb" />
+    </ItemGroup>
+  </Target>
 
   <ItemGroup>
     <None Include="..\..\.build\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\logo.png" Pack="true" PackagePath="" />
