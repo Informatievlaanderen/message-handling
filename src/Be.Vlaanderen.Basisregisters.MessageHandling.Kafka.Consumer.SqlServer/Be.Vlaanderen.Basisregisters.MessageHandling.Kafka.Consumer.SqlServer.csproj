@@ -11,8 +11,8 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.csproj" />
-    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" />
+    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -1209,17 +1209,9 @@
           "xunit.extensibility.core": "[2.9.3]"
         }
       },
-      "be.vlaanderen.basisregisters.messagehandling.kafka": {
-        "type": "Project",
-        "dependencies": {
-          "Confluent.Kafka": "[2.9.0, )",
-          "Newtonsoft.Json": "[13.0.3, )"
-        }
-      },
       "be.vlaanderen.basisregisters.messagehandling.kafka.consumer": {
         "type": "Project",
         "dependencies": {
-          "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka": "[1.0.0, )",
           "Confluent.Kafka": "[2.9.0, )",
           "Microsoft.EntityFrameworkCore": "[9.0.3, )",
           "Microsoft.Extensions.Logging": "[9.0.3, )",

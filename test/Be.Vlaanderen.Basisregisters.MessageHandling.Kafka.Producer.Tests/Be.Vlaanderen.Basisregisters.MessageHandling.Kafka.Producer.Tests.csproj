@@ -3,6 +3,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer.csproj" />
+    <ProjectReference Include="..\..\src\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" />
   </ItemGroup>
 
   <ItemGroup>
