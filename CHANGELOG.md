@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/informatievlaanderen/message-handling/compare/v6.0.1...v6.0.2) (2025-04-11)
+
+
+### Bug Fixes
+
+* **nuget:** correct dependencies packages ([d1f18a3](https://github.com/informatievlaanderen/message-handling/commit/d1f18a3aa3c625348ea6938d44f3803316916968))
+
 ## [6.0.1](https://github.com/informatievlaanderen/message-handling/compare/v6.0.0...v6.0.1) (2025-04-11)
 
 
