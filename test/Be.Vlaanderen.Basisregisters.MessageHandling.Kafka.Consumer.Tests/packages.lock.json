@@ -14,7 +14,7 @@
       },
       "FluentAssertions": {
         "type": "Direct",
-        "requested": "[7.1.0, 8.0.0)",
+        "requested": "[7.1.0, 8.2.0]",
         "resolved": "7.1.0",
         "contentHash": "98Dt8m2ZYAjxAzoVGnv+yYh441lhM/SLIxWXp9aZU1rF0mRtA8W49GzTPhwQcclqAiRnjeM0VydVkM1OwKF4NQ==",
         "dependencies": {
@@ -1207,6 +1207,13 @@
         "contentHash": "yMb6vMESlSrE3Wfj7V6cjQ3S4TXdXpRqYeNEI3zsX31uTsGMJjEw6oD5F5u1cHnMptjhEECnmZSsPxB6ChZHDQ==",
         "dependencies": {
           "xunit.extensibility.core": "[2.9.3]"
+        }
+      },
+      "be.vlaanderen.basisregisters.messagehandling.kafka": {
+        "type": "Project",
+        "dependencies": {
+          "Confluent.Kafka": "[2.9.0, )",
+          "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "be.vlaanderen.basisregisters.messagehandling.kafka.consumer": {
