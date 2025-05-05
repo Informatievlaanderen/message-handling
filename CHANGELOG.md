@@ -1,3 +1,10 @@
+## [6.0.3](https://github.com/informatievlaanderen/message-handling/compare/v6.0.2...v6.0.3) (2025-05-05)
+
+
+### Bug Fixes
+
+* **consumer-sql:** correct nuget package + update dependencies ([e179b53](https://github.com/informatievlaanderen/message-handling/commit/e179b53bfc36d6a7d97462e5086c650593688973))
+
 ## [6.0.2](https://github.com/informatievlaanderen/message-handling/compare/v6.0.1...v6.0.2) (2025-04-11)
 
 
