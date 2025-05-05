@@ -4,12 +4,12 @@
     <RootNamespace>Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer</RootNamespace>
   </PropertyGroup>
   <Import Project="..\..\.build\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Library.props" />
-  
+
   <PropertyGroup>
     <!-- Error NETSDK1152: https://docs.microsoft.com/en-us/dotnet/core/compatibility/sdk/6.0/duplicate-files-in-output -->
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka\Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.csproj" PrivateAssets="All" />
@@ -47,6 +47,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Confluent.Kafka" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Newtonsoft.Json" />
 
     <PackageReference Include="SourceLink.Embed.AllSourceFiles" PrivateAssets="all" />
     <PackageReference Include="SourceLink.Copy.PdbFiles" PrivateAssets="all" />
