@@ -4,17 +4,17 @@
     "net9.0": {
       "AWSSDK.Core": {
         "type": "Direct",
-        "requested": "[3.7.402.35, )",
-        "resolved": "3.7.402.35",
-        "contentHash": "9Jby5BBQTzZOqzQiFjJyr3zCe5GVi64U8gxOlPk3vTTuVJqtkisBJ0Jh1RBj2fNqnWmJLfaWSCLvX1L06zwHnQ=="
+        "requested": "[4.0.0.3, )",
+        "resolved": "4.0.0.3",
+        "contentHash": "pqHRxwcL35Pq2BTkG2ebFBqP4MXNIv2lSV4LGDohYwqdZRYTy50ZIyRoi4psbbDfX98PbcndXAuhkt5USWExcQ=="
       },
       "AWSSDK.SQS": {
         "type": "Direct",
-        "requested": "[3.7.400.129, )",
-        "resolved": "3.7.400.129",
-        "contentHash": "vc1OnZscfyKbuucR6Ru1SQj6o6SYizmmd3P/BBgP7Oph9I2UMirSs92iDisKjI6kuun3qv5K9SJBasZA3di1lQ==",
+        "requested": "[4.0.0.2, )",
+        "resolved": "4.0.0.2",
+        "contentHash": "J/Uf9N8ac8D0/HdIKSGY2Bq/6M9CB2Rn7qx7mIn88oxK8pi51vt4n1t+7ZCrSoSgTylH4c2a5dAG9zBti+nZvw==",
         "dependencies": {
-          "AWSSDK.Core": "[3.7.402.35, 4.0.0)"
+          "AWSSDK.Core": "[4.0.0.3, 5.0.0)"
         }
       },
       "Microsoft.Extensions.Configuration.Json": {
