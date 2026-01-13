@@ -1,6 +1,7 @@
 namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
@@ -33,7 +34,11 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
 
         public object? Map(JsonSerializer serializer)
         {
-            var assembly = GetAssemblyNameContainingType(Type);
+            return Map(serializer, AppDomain.CurrentDomain.GetAssemblies());
+        }
+        public object? Map(JsonSerializer serializer, IEnumerable<Assembly> messageAssemblies)
+        {
+            var assembly = GetAssemblyNameContainingType(Type, messageAssemblies);
             var type = assembly?.GetType(Type);
 
             using (var reader = new JsonTextReader(new StringReader(Data)))
@@ -57,7 +62,7 @@ namespace Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple
             return new SqsJsonMessage(message.GetType().FullName!, serializer.Serialize(message));
         }
 
-        private static Assembly? GetAssemblyNameContainingType(string typeName) => AppDomain.CurrentDomain.GetAssemblies()
+        private static Assembly? GetAssemblyNameContainingType(string typeName, IEnumerable<Assembly> messageAssemblies) => messageAssemblies
             .Select(x => new
             {
                 Assembly = x,
