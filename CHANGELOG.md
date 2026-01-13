@@ -1,3 +1,10 @@
+## [6.0.4](https://github.com/informatievlaanderen/message-handling/compare/v6.0.3...v6.0.4) (2026-01-13)
+
+
+### Bug Fixes
+
+* optionally pass assemblies when mapping in SqsJsonMessage ([e864e08](https://github.com/informatievlaanderen/message-handling/commit/e864e08309fd9150ebea0cab9a78d307b3ca6f0d))
+
 ## [6.0.3](https://github.com/informatievlaanderen/message-handling/compare/v6.0.2...v6.0.3) (2025-05-05)
 
 
