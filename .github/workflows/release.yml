@@ -168,28 +168,28 @@ jobs:
         pip install requests markdown argparse
 
     - name: Download NuGet AwsSqs Simple
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
     - name: Download NuGet Kafka Consumer
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
     - name: Download NuGet Kafka Consumer SqlServer
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
     - name: Download NuGet Kafka Producer
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer-${{ needs.set-release-version.outputs.version }}
@@ -238,25 +238,25 @@ jobs:
       run: dotnet --info
 
     - name: Download NuGet AwsSqs Simple package
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.AwsSqs.Simple-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet Kafka Consumer package
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet Kafka Consumer SqlServer package
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Consumer.SqlServer-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet Kafka Producer package
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v7
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer-${{ needs.release.outputs.version }}
         path: ~/
