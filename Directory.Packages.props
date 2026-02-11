@@ -9,16 +9,16 @@
         <PackageVersion Include="AWSSDK.Core" Version="3.7.402.35" />
         <PackageVersion Include="AWSSDK.SQS" Version="3.7.400.129" />
         <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
-        <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.4" />
-        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
-        <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.4" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.13" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.13" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="9.0.13" />
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.13" />
+        <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.13" />
 
         <PackageVersion Include="AutoFixture.Xunit2" Version="4.18.1" />
         <PackageVersion Include="Moq" Version="4.20.72" />
         <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.4" />
+        <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.13" />
         <PackageVersion Include="xunit" Version="2.9.3" />
         <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0" />
         <PackageVersion Include="xunit.categories" Version="3.0.1" />
