@@ -104,8 +104,8 @@
       },
       "librdkafka.redist": {
         "type": "Transitive",
-        "resolved": "2.10.0",
-        "contentHash": "QOvg/8WapA3c5EwPojCjnLEdxJNjxJ5s2GO8VxrDV9BTpnXHHGJ14MPwcGKiQeiRsBvPoeoTKMOh5KYu/Wm3jw=="
+        "resolved": "2.14.0",
+        "contentHash": "jqmYswYUiW9So5lce1Upo/zm5V7p/kWaqnUqkP5Lar1Ekq2yLrORoDCJ1JIiVLD3xdVkavwqW9iFKHBfkTsS7w=="
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
@@ -1212,24 +1212,24 @@
       "be.vlaanderen.basisregisters.messagehandling.kafka": {
         "type": "Project",
         "dependencies": {
-          "Confluent.Kafka": "[2.10.0, )",
+          "Confluent.Kafka": "[2.14.0, )",
           "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "be.vlaanderen.basisregisters.messagehandling.kafka.producer": {
         "type": "Project",
         "dependencies": {
-          "Confluent.Kafka": "[2.10.0, )",
+          "Confluent.Kafka": "[2.14.0, )",
           "Newtonsoft.Json": "[13.0.3, )"
         }
       },
       "Confluent.Kafka": {
         "type": "CentralTransitive",
-        "requested": "[2.10.0, )",
-        "resolved": "2.10.0",
-        "contentHash": "beGF9x9Yw83NDTs0oyNdRHSR27HjF2NpwwCZZ45hEk1zE+yDW8JXuyzitfdYftLACCbuaBJCEh+ZW7Qxg9cdnA==",
+        "requested": "[2.14.0, )",
+        "resolved": "2.14.0",
+        "contentHash": "NnG0UXR9Wnup3Nvik6SBVaHRzCu0Iit8BE7ayaWsLt+yRWrI0ZY6o8pxPB6B/jyu+fbUllZ9efsbyFwrowDcpg==",
         "dependencies": {
-          "librdkafka.redist": "2.10.0"
+          "librdkafka.redist": "2.14.0"
         }
       },
       "Microsoft.EntityFrameworkCore": {
@@ -1274,8 +1274,8 @@
     "net9.0/linux-x64": {
       "librdkafka.redist": {
         "type": "Transitive",
-        "resolved": "2.10.0",
-        "contentHash": "QOvg/8WapA3c5EwPojCjnLEdxJNjxJ5s2GO8VxrDV9BTpnXHHGJ14MPwcGKiQeiRsBvPoeoTKMOh5KYu/Wm3jw=="
+        "resolved": "2.14.0",
+        "contentHash": "jqmYswYUiW9So5lce1Upo/zm5V7p/kWaqnUqkP5Lar1Ekq2yLrORoDCJ1JIiVLD3xdVkavwqW9iFKHBfkTsS7w=="
       },
       "Microsoft.Win32.Primitives": {
         "type": "Transitive",
@@ -2176,8 +2176,8 @@
     "net9.0/win-x64": {
       "librdkafka.redist": {
         "type": "Transitive",
-        "resolved": "2.10.0",
-        "contentHash": "QOvg/8WapA3c5EwPojCjnLEdxJNjxJ5s2GO8VxrDV9BTpnXHHGJ14MPwcGKiQeiRsBvPoeoTKMOh5KYu/Wm3jw=="
+        "resolved": "2.14.0",
+        "contentHash": "jqmYswYUiW9So5lce1Upo/zm5V7p/kWaqnUqkP5Lar1Ekq2yLrORoDCJ1JIiVLD3xdVkavwqW9iFKHBfkTsS7w=="
       },
       "Microsoft.Win32.Primitives": {
         "type": "Transitive",
