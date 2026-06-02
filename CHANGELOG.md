@@ -1,3 +1,15 @@
+# [7.0.0](https://github.com/informatievlaanderen/message-handling/compare/v6.0.4...v7.0.0) (2026-06-02)
+
+
+### Features
+
+* update packages + upgrade to dotnet 10 ([30bead3](https://github.com/informatievlaanderen/message-handling/commit/30bead34275a9ccd18a9334ecad7446c6eee8fa8))
+
+
+### BREAKING CHANGES
+
+* update to dotnet 10
+
 ## [6.0.4](https://github.com/informatievlaanderen/message-handling/compare/v6.0.3...v6.0.4) (2026-01-13)
 
 

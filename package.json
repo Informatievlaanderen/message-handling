@@ -1,6 +1,6 @@
 {
   "name": "message-handling",
-  "version": "6.0.4",
+  "version": "7.0.0",
   "description": "Lightweight message handling infrastructure.",
   "author": "Basisregisters Vlaanderen",
   "license": "MIT",
