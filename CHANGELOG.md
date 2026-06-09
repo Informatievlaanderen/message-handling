@@ -1,3 +1,10 @@
+# [7.1.0](https://github.com/informatievlaanderen/message-handling/compare/v7.0.0...v7.1.0) (2026-06-09)
+
+
+### Features
+
+* update packages ([8204f50](https://github.com/informatievlaanderen/message-handling/commit/8204f50ae00a902ae15a7f348a96f7ad5f94f6a3))
+
 # [7.0.0](https://github.com/informatievlaanderen/message-handling/compare/v6.0.4...v7.0.0) (2026-06-02)
 
 
