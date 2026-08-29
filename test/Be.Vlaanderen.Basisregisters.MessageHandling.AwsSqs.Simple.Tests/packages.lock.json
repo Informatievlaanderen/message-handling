@@ -162,8 +162,8 @@
       "be.vlaanderen.basisregisters.messagehandling.awssqs.simple": {
         "type": "Project",
         "dependencies": {
-          "AWSSDK.Core": "[4.0.8.1, )",
-          "AWSSDK.SQS": "[4.0.3.2, )",
+          "AWSSDK.Core": "[4.0.102.1, )",
+          "AWSSDK.SQS": "[4.0.100.11, )",
           "Microsoft.Extensions.Configuration.Json": "[10.0.8, )",
           "Microsoft.Extensions.DependencyInjection": "[10.0.8, )",
           "Newtonsoft.Json": "[13.0.4, )"
@@ -171,17 +171,17 @@
       },
       "AWSSDK.Core": {
         "type": "CentralTransitive",
-        "requested": "[4.0.8.1, )",
-        "resolved": "4.0.8.1",
-        "contentHash": "Zu5g0zQ3WNZrL+0RqRSa2guAcLJqbFwK7mxfm6stx/b3cfOdqt/k9Y6c/8rxyHSeVf+8iUJGV4J7WhbLs9zOpA=="
+        "requested": "[4.0.102.1, )",
+        "resolved": "4.0.102.1",
+        "contentHash": "vsf+/o+S/euH/wG7bO1cha+OWaHvjgvpDeGFO6l3Vcdio9GlSfXkZDD2BogMuAJ+/jDyqqSgqmYVolPKV9ie/A=="
       },
       "AWSSDK.SQS": {
         "type": "CentralTransitive",
-        "requested": "[4.0.3.2, )",
-        "resolved": "4.0.3.2",
-        "contentHash": "2yP5f3kI+JQkfa34+zDXT9dqSg37NGR5VBcXxLMLm7Z3SoZnzhzR3/40Apm3cZUQGfAxtCUA8H0cGfr36EE4pA==",
+        "requested": "[4.0.100.11, )",
+        "resolved": "4.0.100.11",
+        "contentHash": "71a2QN2WQZFTTcIWLUm6b+TSJb8ujo1pIefP4rKd36rbpK8n3D7JqXWr4w9fPgqgE7RXaQ9rdmOLani0MLT1HA==",
         "dependencies": {
-          "AWSSDK.Core": "[4.0.8.1, 5.0.0)"
+          "AWSSDK.Core": "[4.0.102.1, 5.0.0)"
         }
       },
       "Microsoft.Extensions.Configuration.Json": {
